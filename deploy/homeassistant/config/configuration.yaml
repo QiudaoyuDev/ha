@@ -6,6 +6,10 @@ default_config:
 frontend:
   themes: !include_dir_merge_named themes
 
+# UI only consumes these semantic, Chinese display states.  Integration values
+# remain untouched and can still be inspected from Developer Tools.
+template: !include templates/yuedu_ui.yaml
+
 automation: !include automations.yaml
 script: !include scripts.yaml
 scene: !include scenes.yaml

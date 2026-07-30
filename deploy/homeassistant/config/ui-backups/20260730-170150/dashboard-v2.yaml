@@ -1,0 +1,336 @@
+# 悦都全屋 Dashboard v3
+# 空间优先、按需展开：首页看状态，地图做定位，房间页承载控制。
+title: 悦都全屋
+views:
+  - title: 我的家
+    path: home
+    icon: mdi:home-variant-outline
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 悦都 · 全屋
+        subtitle: 深圳 · 保利悦都 ｜空间即入口
+
+      - type: custom:mushroom-chips-card
+        alignment: justify
+        chips:
+          - type: template
+            entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+            icon: mdi:door-closed-lock
+            icon_color: amber
+            content: "门 {{ states(entity) }}"
+            tap_action: { action: more-info }
+          - type: template
+            entity: climate.xiaomi_cn_2231050284_h69h00
+            icon: mdi:air-conditioner
+            icon_color: blue
+            content: "主卧 {{ state_attr(entity, 'current_temperature') | default('--') }}°"
+            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+          - type: template
+            entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+            icon: mdi:washing-machine
+            icon_color: cyan
+            content: "洗衣 {{ states(entity) }}"
+            tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+
+      - type: markdown
+        content: |
+          ## 此刻的家
+          从空间开始；只在需要时展开设备控制。
+
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+            primary: 入户安全
+            secondary: "{{ states(entity) }} · 点击查看门锁状态"
+            icon: mdi:shield-home-outline
+            icon_color: amber
+            multiline_secondary: true
+            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+          - type: custom:mushroom-template-card
+            entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+            primary: 客厅守护
+            secondary: "摄像机 {{ states(entity) }}"
+            icon: mdi:cctv
+            icon_color: teal
+            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+          - type: custom:mushroom-template-card
+            entity: climate.xiaomi_cn_2231050284_h69h00
+            primary: 卧室 A
+            secondary: "{{ state_attr(entity, 'current_temperature') | default('--') }}° · {{ states(entity) }}"
+            icon: mdi:bed-king-outline
+            icon_color: blue
+            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+          - type: custom:mushroom-template-card
+            entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+            primary: 阳台 A
+            secondary: "洗衣机 {{ states(entity) }}"
+            icon: mdi:balcony
+            icon_color: cyan
+            tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+
+      - type: custom:mushroom-title-card
+        title: 快捷模式
+        subtitle: 场景只做明确、可解释的动作
+
+      - type: grid
+        columns: 2
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: 离家模式
+            secondary: 关闭循环扇，开启摄像机
+            icon: mdi:home-export-outline
+            icon_color: orange
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target: { entity_id: script.yuedu_away_mode }
+          - type: custom:mushroom-template-card
+            primary: 睡眠模式
+            secondary: 收拢卧室设备，保留提醒
+            icon: mdi:weather-night
+            icon_color: indigo
+            tap_action:
+              action: perform-action
+              perform_action: script.turn_on
+              target: { entity_id: script.yuedu_sleep_mode }
+
+      - type: custom:mushroom-title-card
+        title: 去一个空间
+        subtitle: 设备会随空间增长，不在首页堆叠
+
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:mushroom-template-card
+            primary: 家庭地图
+            icon: mdi:floor-plan
+            icon_color: deep-orange
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/map }
+          - type: custom:mushroom-template-card
+            primary: 客厅
+            icon: mdi:sofa-outline
+            icon_color: teal
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+          - type: custom:mushroom-template-card
+            primary: 卧室 A
+            icon: mdi:bed-king-outline
+            icon_color: blue
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+          - type: custom:mushroom-template-card
+            primary: 阳台 A
+            icon: mdi:balcony
+            icon_color: cyan
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+          - type: custom:mushroom-template-card
+            primary: 卧室 B
+            icon: mdi:bed-single-outline
+            icon_color: grey
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/bedroom-b }
+          - type: custom:mushroom-template-card
+            primary: 厨房卫浴
+            icon: mdi:countertop-outline
+            icon_color: brown
+            layout: vertical
+            tap_action: { action: navigate, navigation_path: /yuedu-home/service-spaces }
+
+  # 2.5D 户型是全屋“空间索引”，触点只用于定位与快速进入。
+  - title: 家庭地图
+    path: map
+    icon: mdi:floor-plan
+    theme: 悦都暖石
+    panel: true
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: picture-elements
+            image: /local/floorplan/yuedu-home-2p5d.png
+            elements:
+              - type: state-icon
+                entity: climate.xiaomi_cn_2231050284_h69h00
+                title: 卧室 A · 空调
+                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                style: { left: 30%, top: 31%, background: 'rgba(26, 86, 141, .94)', border: '2px solid rgba(255,255,255,.8)', border-radius: 50%, padding: 10px, color: white }
+              - type: state-icon
+                entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+                title: 卧室 A · 循环扇
+                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                style: { left: 40%, top: 37%, background: 'rgba(28, 121, 125, .94)', border: '2px solid rgba(255,255,255,.8)', border-radius: 50%, padding: 10px, color: white }
+              - type: state-icon
+                entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+                title: 客厅 · 摄像机
+                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                style: { left: 37%, top: 55%, background: 'rgba(43, 52, 60, .94)', border: '2px solid rgba(255,255,255,.8)', border-radius: 50%, padding: 10px, color: white }
+              - type: state-icon
+                entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+                title: 入户门 · 门锁状态
+                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                style: { left: 73%, top: 79%, background: 'rgba(144, 96, 31, .96)', border: '2px solid rgba(255,255,255,.8)', border-radius: 50%, padding: 10px, color: white }
+              - type: state-icon
+                entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+                title: 阳台 A · 洗衣机
+                tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+                style: { left: 10%, top: 73%, background: 'rgba(25, 112, 120, .94)', border: '2px solid rgba(255,255,255,.8)', border-radius: 50%, padding: 10px, color: white }
+              - type: icon
+                icon: mdi:bed-king-outline
+                title: 卧室 A
+                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                style: { left: 20%, top: 18%, color: '#5d769b' }
+              - type: icon
+                icon: mdi:sofa-outline
+                title: 客厅
+                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                style: { left: 47%, top: 62%, color: '#6d5b46' }
+              - type: icon
+                icon: mdi:bed-single-outline
+                title: 卧室 B
+                tap_action: { action: navigate, navigation_path: /yuedu-home/bedroom-b }
+                style: { left: 72%, top: 23%, color: '#88745f' }
+              - type: icon
+                icon: mdi:countertop-outline
+                title: 厨房
+                tap_action: { action: navigate, navigation_path: /yuedu-home/service-spaces }
+                style: { left: 84%, top: 48%, color: '#7a7667' }
+          - type: markdown
+            content: "**蓝色**为卧室环境，**青色**为洗衣/摄像机，**琥珀色**为入户安全。点击图标进入对应空间。"
+
+  - title: 客厅
+    path: living
+    icon: mdi:sofa-outline
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 客厅
+        subtitle: 安全与可见性
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+        name: 客厅摄像机
+        icon: mdi:cctv
+        show_state: true
+      - type: entities
+        title: 入户安全（仅状态，不提供远程开锁）
+        state_color: true
+        entities:
+          - entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+            name: 大门状态
+          - entity: sensor.xiaomi_cn_1193742494_s1_status_p_6_1004
+            name: 门锁状态
+          - entity: sensor.xiaomi_cn_1193742494_s1_battery_level_p_6_1003
+            name: 门锁电量
+      - type: entities
+        title: 摄像机控制
+        state_color: true
+        entities:
+          - entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+            name: 摄像机开关
+          - entity: select.chuangmi_cn_1143041027_069a01_night_shot_p_2_3
+            name: 夜视
+          - entity: select.chuangmi_cn_1143041027_069a01_recording_mode_p_2_7
+            name: 录制模式
+          - entity: switch.chuangmi_cn_1143041027_069a01_motion_tracking_p_2_8
+            name: 移动追踪
+
+  - title: 卧室 A
+    path: master-bedroom
+    icon: mdi:bed-king-outline
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 卧室 A
+        subtitle: 温度、气流与睡眠
+      - type: custom:mushroom-climate-card
+        entity: climate.xiaomi_cn_2231050284_h69h00
+        name: 主卧空调
+        show_temperature_control: true
+        collapsible_controls: false
+      - type: custom:mushroom-fan-card
+        entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+        name: 米家循环扇
+        show_percentage_control: true
+        collapsible_controls: false
+      - type: entities
+        title: 气流设置
+        entities:
+          - entity: select.xiaomi_cn_922697707_p51_fan_level_a_p_2_2
+            name: 风速挡位
+          - entity: select.xiaomi_cn_922697707_p51_horizontal_swing_included_angle_p_2_5
+            name: 左右摆风
+
+  - title: 阳台 A
+    path: balcony
+    icon: mdi:balcony
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 阳台 A
+        subtitle: 洗衣进度与任务设置
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        entity: switch.mibx5_cn_2176693305_f94_on_p_2_1
+        name: 阳台洗衣机
+        icon: mdi:washing-machine
+        show_state: true
+      - type: entities
+        title: 洗衣任务
+        state_color: true
+        entities:
+          - entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+            name: 工作状态
+          - entity: sensor.mibx5_cn_2176693305_f94_left_time_p_2_10
+            name: 剩余时间
+          - entity: sensor.mibx5_cn_2176693305_f94_door_state_p_2_9
+            name: 舱门状态
+          - entity: switch.mibx5_cn_2176693305_f94_on_p_2_1
+            name: 电源
+      - type: entities
+        title: 洗涤设置
+        entities:
+          - entity: select.mibx5_cn_2176693305_f94_mode_p_2_3
+            name: 模式
+          - entity: select.mibx5_cn_2176693305_f94_target_temperature_p_2_5
+            name: 温度
+          - entity: select.mibx5_cn_2176693305_f94_spin_speed_p_2_7
+            name: 脱水转速
+
+  # 空房间使用同一扩展契约；新增设备时只在对应页补充能力卡，不回流到首页。
+  - title: 卧室 B
+    path: bedroom-b
+    icon: mdi:bed-single-outline
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 卧室 B
+        subtitle: 等待接入设备
+      - type: markdown
+        content: |
+          后续按 **灯光 → 环境 → 门窗/人体 → 窗帘** 的能力顺序加入。
+          首页会自动保持低密度，只保留这个空间入口。
+
+  - title: 厨房与卫浴
+    path: service-spaces
+    icon: mdi:countertop-outline
+    theme: 悦都暖石
+    cards:
+      - type: custom:mushroom-title-card
+        title: 厨房与卫浴
+        subtitle: 安全优先的预留空间
+      - type: markdown
+        content: |
+          ### 厨房
+          预留照明、排风、燃气与漏水告警、烹饪设备。
+
+          ### 卫生间
+          预留照明、排风、湿度和漏水告警。
