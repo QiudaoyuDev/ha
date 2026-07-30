@@ -1,0 +1,13 @@
+services:
+  homeassistant:
+    container_name: homeassistant-local
+    image: ghcr.io/home-assistant/home-assistant:stable
+    ports:
+      - "8123:8123"
+      # HomeKit Bridge configuration uses this fixed HAP port.
+      - "21063:21063"
+    volumes:
+      - ./config:/config
+    environment:
+      TZ: Asia/Shanghai
+    restart: unless-stopped

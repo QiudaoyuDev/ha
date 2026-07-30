@@ -1,0 +1,349 @@
+rail:
+  - id: clock
+    type: clock
+    city: Shenzhen
+  - id: nav
+    type: nav
+  - id: washer-progress
+    type: progress
+    name: 阳台洗衣
+    icon: local_laundry_service
+    status_entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+    remaining_entity: sensor.mibx5_cn_2176693305_f94_left_time_p_2_10
+  - id: spacer
+    type: spacer
+  - id: status
+    type: status
+    icon: home
+    text: 保利悦都
+
+rooms:
+  - id: home
+    name: 悦都 · 全屋
+    icon: home
+    summary: 深圳 · 保利悦都
+    columns: 2
+    cards:
+      -
+        - id: home-header
+          type: header
+          title: 悦都 · 全屋
+          subtitle: 深圳 · 保利悦都
+          icon: home
+        - id: home-floorplan
+          type: fusion
+          height: 350
+          config:
+            type: picture_elements
+            elements:
+              - className: Image
+                attrs:
+                  type: image
+                  name: Floor plan
+                  x: 0
+                  y: 0
+                  width: 470
+                  height: 337
+                  scaleX: 1
+                  scaleY: 1
+                  rotation: 0
+                  opacity: 1
+                  draggable: false
+                  listening: false
+                  visible: true
+                  src: /local/yuedu-floorplan.png
+              - className: Image
+                attrs:
+                  type: state-icon
+                  name: 主卧空调
+                  entity_id: climate.xiaomi_cn_2231050284_h69h00
+                  x: 174
+                  y: 92
+                  width: 34
+                  height: 34
+                  color: '#56b6ff'
+                  draggable: false
+                  visible: true
+              - className: Text
+                attrs:
+                  type: text
+                  name: 空调标签
+                  text: 主卧空调
+                  x: 208
+                  y: 101
+                  fontSize: 13
+                  fill: '#ffffff'
+                  fontFamily: Inter Variable
+                  fontStyle: bold
+                  draggable: false
+                  visible: true
+              - className: Image
+                attrs:
+                  type: state-icon
+                  name: 循环扇
+                  entity_id: fan.xiaomi_cn_922697707_p51_s_2_fan
+                  x: 163
+                  y: 133
+                  width: 34
+                  height: 34
+                  color: '#5ed7cb'
+                  draggable: false
+                  visible: true
+              - className: Text
+                attrs:
+                  type: text
+                  name: 风扇标签
+                  text: 循环扇
+                  x: 197
+                  y: 142
+                  fontSize: 13
+                  fill: '#ffffff'
+                  fontFamily: Inter Variable
+                  fontStyle: bold
+                  draggable: false
+                  visible: true
+              - className: Image
+                attrs:
+                  type: state-icon
+                  name: 摄像机
+                  entity_id: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+                  x: 252
+                  y: 205
+                  width: 34
+                  height: 34
+                  color: '#f5f5f5'
+                  draggable: false
+                  visible: true
+              - className: Text
+                attrs:
+                  type: text
+                  name: 摄像机标签
+                  text: 摄像机
+                  x: 286
+                  y: 214
+                  fontSize: 13
+                  fill: '#ffffff'
+                  fontFamily: Inter Variable
+                  fontStyle: bold
+                  draggable: false
+                  visible: true
+              - className: Image
+                attrs:
+                  type: state-icon
+                  name: 门锁
+                  entity_id: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+                  x: 334
+                  y: 270
+                  width: 34
+                  height: 34
+                  color: '#e8bd72'
+                  draggable: false
+                  visible: true
+              - className: Text
+                attrs:
+                  type: text
+                  name: 门锁标签
+                  text: 门锁
+                  x: 368
+                  y: 279
+                  fontSize: 13
+                  fill: '#ffffff'
+                  fontFamily: Inter Variable
+                  fontStyle: bold
+                  draggable: false
+                  visible: true
+              - className: Image
+                attrs:
+                  type: state-icon
+                  name: 洗衣机
+                  entity_id: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+                  x: 62
+                  y: 231
+                  width: 34
+                  height: 34
+                  color: '#54c7d2'
+                  draggable: false
+                  visible: true
+              - className: Text
+                attrs:
+                  type: text
+                  name: 洗衣机标签
+                  text: 洗衣机
+                  x: 96
+                  y: 240
+                  fontSize: 13
+                  fill: '#ffffff'
+                  fontFamily: Inter Variable
+                  fontStyle: bold
+                  draggable: false
+                  visible: true
+        - id: home-climate
+          type: climate
+          title: 卧室 A · 主卧空调
+          entity: climate.xiaomi_cn_2231050284_h69h00
+        - id: home-fan
+          type: entities
+          title: 卧室 A · 循环扇
+          show_count: true
+          entities:
+            - entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+              name: 米家循环扇
+              icon: mode_fan
+            - entity: select.xiaomi_cn_922697707_p51_fan_level_a_p_2_2
+              name: 风速挡位
+              icon: speed
+      -
+        - id: home-security
+          type: entities
+          title: 客厅 · 入户安全
+          entities:
+            - entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+              name: 大门状态
+              icon: door_front
+            - entity: sensor.xiaomi_cn_1193742494_s1_battery_level_p_6_1003
+              name: 门锁电量
+              icon: battery_full
+        - id: home-camera
+          type: entities
+          title: 客厅 · 小米智能摄像机 3
+          entities:
+            - entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+              name: 摄像机开关
+              icon: videocam
+            - entity: switch.chuangmi_cn_1143041027_069a01_motion_tracking_p_2_8
+              name: 移动追踪
+              icon: track_changes
+        - id: home-washer
+          type: entities
+          title: 阳台 A · 洗衣机
+          entities:
+            - entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+              name: 工作状态
+              icon: local_laundry_service
+            - entity: sensor.mibx5_cn_2176693305_f94_left_time_p_2_10
+              name: 剩余时间
+              icon: timer
+
+  - id: bedroom-a
+    name: 卧室 A
+    icon: bed
+    summary: 空调与循环扇
+    columns: 2
+    cards:
+      -
+        - id: bedroom-climate
+          type: climate
+          title: 主卧空调
+          entity: climate.xiaomi_cn_2231050284_h69h00
+      -
+        - id: bedroom-fan
+          type: entities
+          title: 米家循环扇
+          entities:
+            - entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+              name: 开关
+            - entity: select.xiaomi_cn_922697707_p51_fan_level_a_p_2_2
+              name: 挡位
+            - entity: select.xiaomi_cn_922697707_p51_horizontal_swing_included_angle_p_2_5
+              name: 左右摆风
+
+  - id: living
+    name: 客厅
+    icon: weekend
+    summary: 摄像机与入户门锁
+    columns: 2
+    cards:
+      -
+        - id: living-camera
+          type: entities
+          title: 小米智能摄像机 3 云台版
+          entities:
+            - entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+              name: 摄像机开关
+            - entity: select.chuangmi_cn_1143041027_069a01_night_shot_p_2_3
+              name: 夜视
+            - entity: select.chuangmi_cn_1143041027_069a01_recording_mode_p_2_7
+              name: 录制模式
+            - entity: switch.chuangmi_cn_1143041027_069a01_motion_tracking_p_2_8
+              name: 移动追踪
+      -
+        - id: living-lock
+          type: entities
+          title: 入户智能门锁
+          entities:
+            - entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+              name: 大门状态
+              icon: door_front
+            - entity: sensor.xiaomi_cn_1193742494_s1_status_p_6_1004
+              name: 门锁状态
+              icon: lock
+            - entity: sensor.xiaomi_cn_1193742494_s1_battery_level_p_6_1003
+              name: 电池电量
+              icon: battery_full
+
+  - id: balcony-a
+    name: 阳台 A
+    icon: local_laundry_service
+    summary: 洗衣与烘干
+    columns: 2
+    cards:
+      -
+        - id: washer-controls
+          type: entities
+          title: 洗衣机
+          entities:
+            - entity: switch.mibx5_cn_2176693305_f94_on_p_2_1
+              name: 电源
+            - entity: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+              name: 工作状态
+            - entity: sensor.mibx5_cn_2176693305_f94_left_time_p_2_10
+              name: 剩余时间
+            - entity: sensor.mibx5_cn_2176693305_f94_door_state_p_2_9
+              name: 舱门状态
+      -
+        - id: washer-program
+          type: entities
+          title: 洗涤程序
+          entities:
+            - entity: select.mibx5_cn_2176693305_f94_mode_p_2_3
+              name: 模式
+            - entity: select.mibx5_cn_2176693305_f94_target_temperature_p_2_5
+              name: 温度
+            - entity: select.mibx5_cn_2176693305_f94_spin_speed_p_2_7
+              name: 脱水转速
+
+  - id: bedroom-b
+    name: 卧室 B
+    icon: bed
+    summary: 暂无已接入设备
+    cards:
+      -
+        - id: bedroom-b-header
+          type: header
+          title: 卧室 B
+          subtitle: 后续接入设备会显示在这里
+          icon: bed
+
+  - id: kitchen
+    name: 厨房
+    icon: kitchen
+    summary: 暂无已接入设备
+    cards:
+      -
+        - id: kitchen-header
+          type: header
+          title: 厨房
+          subtitle: 后续接入设备会显示在这里
+          icon: kitchen
+
+  - id: bathroom
+    name: 卫生间
+    icon: shower
+    summary: 暂无已接入设备
+    cards:
+      -
+        - id: bathroom-header
+          type: header
+          title: 卫生间
+          subtitle: 后续接入设备会显示在这里
+          icon: shower

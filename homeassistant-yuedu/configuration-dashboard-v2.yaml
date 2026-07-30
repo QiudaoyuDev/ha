@@ -1,0 +1,9 @@
+# 将本段合并到 /config/configuration.yaml（不要覆盖已有 lovelace 配置）。
+lovelace:
+  dashboards:
+    yuedu-v2:
+      mode: yaml
+      title: 悦都全屋
+      icon: mdi:home-variant-outline
+      show_in_sidebar: true
+      filename: dashboards/dashboard-v2.yaml

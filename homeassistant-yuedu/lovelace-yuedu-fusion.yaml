@@ -1,0 +1,12 @@
+title: 悦都全屋
+views:
+  - title: 悦都 · Fusion
+    path: fusion
+    icon: mdi:floor-plan
+    panel: true
+    cards:
+      - type: iframe
+        url: http://10.12.48.181:5050/hearth
+        aspect_ratio: 16:9
+        hide_background: true
+        disable_sandbox: true

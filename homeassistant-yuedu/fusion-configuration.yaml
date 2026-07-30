@@ -1,0 +1,5 @@
+# Persistent ha-fusion application settings. Authentication is handled by
+# Home Assistant's browser login flow and is not stored in this file.
+locale: zh-Hans
+hearth: true
+motion: true
