@@ -1,8 +1,12 @@
 # 由 /config/configuration.yaml 的 `homekit: !include homekit.yaml` 引入。
 # 只桥接安全且当前已有的可控实体；门锁不暴露，避免出现远程解锁入口。
-- name: 悦都全屋
+- name: YueDu Home
   port: 21063
   mode: bridge
+  # Docker Desktop exposes an internal interface to the container. Keep HAP
+  # bound to its available interface, but advertise the LAN address to Home.
+  advertise_ip:
+    - 192.168.1.5
   filter:
     include_entities:
       - climate.xiaomi_cn_2231050284_h69h00

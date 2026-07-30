@@ -12,11 +12,11 @@ views:
       - type: grid
         cards:
           - type: custom:mushroom-title-card
-            title: 悦都 · 全屋
-            subtitle: 深圳 · 保利悦都 ｜空间即入口
+            title: 悦都全屋
+            subtitle: 空间即入口 · 状态先于控制
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
-            primary: 此刻的家
+            primary: 全屋状态
             secondary: >-
               {% if states(entity) == '全屋状态正常' %}全屋设备已就绪
               {% else %}{{ states(entity) }} · 正在等待米家连接{% endif %}
@@ -27,6 +27,21 @@ views:
               {% if states(entity) == '全屋状态正常' %}teal{% else %}amber{% endif %}
             multiline_secondary: true
             tap_action: { action: navigate, navigation_path: /yuedu-home/map }
+          - type: picture-elements
+            image: /local/floorplan/yuedu-home-2p5d.png
+            elements:
+              - type: state-label
+                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
+                style: { left: 29%, top: 29%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+              - type: state-label
+                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
+                style: { left: 41%, top: 67%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+              - type: state-label
+                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
+                style: { left: 14%, top: 76%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
       - type: grid
         cards:
           - type: custom:mushroom-chips-card
@@ -43,49 +58,50 @@ views:
                 icon: mdi:air-conditioner
                 icon_color: blue
                 content: "主卧 {{ states(entity) }}"
-                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
               - type: template
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
                 icon: mdi:washing-machine
                 icon_color: teal
                 content: "洗衣 {{ states(entity) }}"
-                tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+                tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
           - type: custom:mushroom-title-card
-            title: 去一个空间
-            subtitle: 设备随空间生长，不在首页堆叠
+            title: 常用空间
+            subtitle: 先看状态，需要时再进入控制
           - type: grid
             columns: 2
             square: false
             cards:
               - type: custom:mushroom-template-card
                 entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-                primary: 客厅
-                secondary: "摄像机 {{ states(entity) }} · 入户安全"
+                primary: 客厅守护
+                secondary: "摄像机 {{ states(entity) }}"
                 icon: mdi:sofa-outline
                 icon_color: teal
-                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
               - type: custom:mushroom-template-card
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-                primary: 卧室 A
+                primary: 主卧舒适
                 secondary: >-
                   {% set temp = state_attr(entity, 'temperature') %}
                   {{ states(entity) }}{% if temp != '--' %} · {{ temp }}°{% endif %}
                 icon: mdi:bed-king-outline
                 icon_color: blue
-                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
               - type: custom:mushroom-template-card
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-                primary: 阳台 A
+                primary: 阳台任务
                 secondary: "洗衣机 {{ states(entity) }}"
                 icon: mdi:balcony
                 icon_color: teal
-                tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+                tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
               - type: custom:mushroom-template-card
-                primary: 家庭地图
-                secondary: 2.5D 空间总览
-                icon: mdi:floor-plan
-                icon_color: deep-orange
-                tap_action: { action: navigate, navigation_path: /yuedu-home/map }
+                entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                primary: 门锁
+                secondary: "{{ states(entity) }} · 只读安全状态"
+                icon: mdi:door-closed-lock
+                icon_color: amber
+                tap_action: { action: more-info }
       - type: grid
         cards:
           - type: custom:mushroom-title-card
@@ -127,6 +143,341 @@ views:
             icon: mdi:countertop-outline
             icon_color: brown
             tap_action: { action: navigate, navigation_path: /yuedu-home/service-spaces }
+      # Bubble 只承担按需展开的深度控制；实体卡仍由 Mushroom 负责。
+      - type: grid
+        cards:
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-living-camera'
+            name: 客厅摄像机
+            icon: mdi:cctv
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                primary: 客厅守护
+                secondary: >-
+                  {{ states(entity) }}。当前米家接入未创建 camera.* 视频实体，实时画面需要先接入 RTSP/ONVIF 或 WebRTC 视频源。
+                icon: mdi:cctv
+                icon_color: teal
+                multiline_secondary: true
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: 开始实时流
+                      secondary: P2P 视频流
+                      icon: mdi:play-circle-outline
+                      icon_color: teal
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        target: { entity_id: button.chuangmi_cn_1143041027_069a01_start_p2p_stream_a_9_1 }
+                    - type: custom:mushroom-template-card
+                      primary: 停止实时流
+                      secondary: 节省带宽
+                      icon: mdi:stop-circle-outline
+                      icon_color: amber
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        confirmation: true
+                        target: { entity_id: button.chuangmi_cn_1143041027_069a01_stop_stream_a_9_2 }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+                      name: 摄像机电源
+                      icon: mdi:power
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.chuangmi_cn_1143041027_069a01_motion_detection_p_5_1
+                      name: 移动侦测
+                      icon: mdi:motion-sensor
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.chuangmi_cn_1143041027_069a01_motion_tracking_p_2_8
+                      name: 人形追踪
+                      icon: mdi:target-account
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.chuangmi_cn_1143041027_069a01_mute_p_6_2
+                      name: 静音
+                      icon: mdi:volume-off
+                      icon_color: grey
+                      tap_action: { action: toggle }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-select-card
+                      entity: select.chuangmi_cn_1143041027_069a01_night_shot_p_2_3
+                      name: 夜视模式
+                      icon: mdi:weather-night
+                    - type: custom:mushroom-select-card
+                      entity: select.chuangmi_cn_1143041027_069a01_recording_mode_p_2_7
+                      name: 录像模式
+                      icon: mdi:record-rec
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-master-climate'
+            name: 主卧空调
+            icon: mdi:air-conditioner
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                primary: 主卧空调
+                secondary: >-
+                  {% set temp = state_attr(entity, 'temperature') %}
+                  {{ states(entity) }}{% if temp != '--' %} · 室温 {{ temp }}°C{% endif %}
+                icon: mdi:air-conditioner
+                icon_color: teal
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: custom:mushroom-climate-card
+                  entity: climate.xiaomi_cn_2231050284_h69h00
+                  name: 温度与模式
+                  show_temperature_control: true
+                  collapsible_controls: true
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: custom:mushroom-fan-card
+                  entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+                  name: 米家循环扇
+                  show_percentage_control: true
+                  collapsible_controls: true
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-select-card
+                      entity: select.xiaomi_cn_2231050284_h69h00_wind_direction_p_3_11
+                      name: 送风方向
+                      icon: mdi:weather-windy
+                    - type: custom:mushroom-select-card
+                      entity: select.xiaomi_cn_2231050284_h69h00_vertical_position_p_3_25
+                      name: 导风板位置
+                      icon: mdi:arrow-up-down
+                    - type: custom:mushroom-select-card
+                      entity: select.xiaomi_cn_2231050284_h69h00_sleep_state_p_10_38
+                      name: 睡眠档位
+                      icon: mdi:sleep
+                    - type: custom:mushroom-select-card
+                      entity: select.xiaomi_cn_922697707_p51_fan_level_a_p_2_2
+                      name: 循环扇档位
+                      icon: mdi:fan
+                    - type: custom:mushroom-select-card
+                      entity: select.xiaomi_cn_922697707_p51_horizontal_swing_included_angle_p_2_5
+                      name: 循环扇角度
+                      icon: mdi:sync
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-entity-card
+                      entity: switch.xiaomi_cn_2231050284_h69h00_eco_p_2_7
+                      name: 节能模式
+                      icon: mdi:leaf
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.xiaomi_cn_2231050284_h69h00_sleep_mode_p_2_11
+                      name: 睡眠模式
+                      icon: mdi:weather-night
+                      icon_color: indigo
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.xiaomi_cn_2231050284_h69h00_dryer_p_2_10
+                      name: 防霉干燥
+                      icon: mdi:air-filter
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.xiaomi_cn_2231050284_h69h00_heater_p_2_9
+                      name: 电辅热
+                      icon: mdi:radiator
+                      icon_color: amber
+                      tap_action: { action: toggle }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                    state: 设备离线
+                card:
+                  type: custom:mushroom-template-card
+                  primary: 主卧空调暂不可用
+                  secondary: 设备离线，恢复连接后会显示可执行控件。
+                  icon: mdi:cloud-off-outline
+                  icon_color: amber
+                  multiline_secondary: true
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-balcony-washer'
+            name: 阳台洗衣机
+            icon: mdi:washing-machine
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                primary: 阳台洗衣机
+                secondary: >-
+                  当前任务：{{ states(entity) }} · 剩余时间：{{ states('sensor.mibx5_cn_2176693305_f94_left_time_p_2_10') }}
+                icon: mdi:washing-machine
+                icon_color: teal
+                multiline_secondary: true
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: vertical-stack
+                  cards:
+                    - type: custom:mushroom-entity-card
+                      entity: switch.mibx5_cn_2176693305_f94_on_p_2_1
+                      name: 电源
+                      icon: mdi:power
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-select-card
+                      entity: select.mibx5_cn_2176693305_f94_mode_p_2_3
+                      name: 洗涤模式
+                      icon: mdi:tune-vertical
+                    - type: custom:mushroom-select-card
+                      entity: select.mibx5_cn_2176693305_f94_target_temperature_p_2_5
+                      name: 水温
+                      icon: mdi:thermometer
+                    - type: custom:mushroom-select-card
+                      entity: select.mibx5_cn_2176693305_f94_spin_speed_p_2_7
+                      name: 脱水转速
+                      icon: mdi:rotate-360
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-template-card
+                      primary: 开始洗涤
+                      secondary: 按当前设置
+                      icon: mdi:play-circle-outline
+                      icon_color: teal
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        target: { entity_id: button.mibx5_cn_2176693305_f94_start_wash_a_2_2 }
+                    - type: custom:mushroom-template-card
+                      primary: 暂停洗涤
+                      secondary: 临时中断
+                      icon: mdi:pause-circle-outline
+                      icon_color: amber
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        target: { entity_id: button.mibx5_cn_2176693305_f94_pause_a_2_3 }
+                    - type: custom:mushroom-template-card
+                      primary: 结束洗涤
+                      secondary: 需确认
+                      icon: mdi:stop-circle-outline
+                      icon_color: red
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        confirmation: true
+                        target: { entity_id: button.mibx5_cn_2176693305_f94_stop_washing_a_2_1 }
+                    - type: custom:mushroom-template-card
+                      primary: 解锁舱门
+                      secondary: 完成后取衣
+                      icon: mdi:door-open
+                      icon_color: teal
+                      tap_action:
+                        action: perform-action
+                        perform_action: button.press
+                        target: { entity_id: button.mibx5_cn_2176693305_f94_make_cabin_openable_a_2_7 }
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                    state_not: 设备离线
+                card:
+                  type: grid
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: custom:mushroom-entity-card
+                      entity: switch.mibx5_cn_2176693305_f94_steam_sterilization_p_2_18
+                      name: 蒸汽除菌
+                      icon: mdi:weather-steamy
+                      icon_color: teal
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-entity-card
+                      entity: switch.mibx5_cn_2176693305_f94_sleep_mode_p_2_23
+                      name: 夜间静音
+                      icon: mdi:weather-night
+                      icon_color: indigo
+                      tap_action: { action: toggle }
+                    - type: custom:mushroom-select-card
+                      entity: select.mibx5_cn_2176693305_f94_drying_level_p_2_26
+                      name: 烘干强度
+                      icon: mdi:tumble-dryer
+                    - type: custom:mushroom-select-card
+                      entity: select.mibx5_cn_2176693305_f94_reservation_wash_status_p_2_16
+                      name: 预约洗涤
+                      icon: mdi:calendar-clock
+              - type: conditional
+                conditions:
+                  - condition: state
+                    entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                    state: 设备离线
+                card:
+                  type: custom:mushroom-template-card
+                  primary: 阳台洗衣机暂不可用
+                  secondary: 设备离线，恢复连接后会显示可执行控件。
+                  icon: mdi:cloud-off-outline
+                  icon_color: amber
+                  multiline_secondary: true
 
   - title: 家庭地图
     path: map
@@ -141,44 +492,30 @@ views:
         elements:
           - type: icon
             icon: mdi:air-conditioner
-            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-            style: { left: 29%, top: 31%, color: '#176C93', background: '#FFF9F1', border: '2px solid #176C93', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(23,108,147,.24)' }
-          - type: state-label
-            entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-            style: { left: 37%, top: 31%, color: '#174C65', background: 'rgba(255,249,241,.94)', border: '1px solid #B7D7E3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            title: 主卧空调
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
+            style: { left: 29%, top: 31%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
           - type: icon
             icon: mdi:fan
-            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-            style: { left: 41%, top: 39%, color: '#147B76', background: '#FFF9F1', border: '2px solid #147B76', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(20,123,118,.24)' }
-          - type: state-label
-            entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-            style: { left: 49%, top: 39%, color: '#155E5A', background: 'rgba(255,249,241,.94)', border: '1px solid #B7DDD7', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            title: 主卧循环扇
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
+            style: { left: 38%, top: 39%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
           - type: icon
             icon: mdi:cctv
-            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-            style: { left: 38%, top: 57%, color: '#187A77', background: '#FFF9F1', border: '2px solid #187A77', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(24,122,119,.24)' }
-          - type: state-label
-            entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-            style: { left: 46%, top: 57%, color: '#155E5A', background: 'rgba(255,249,241,.94)', border: '1px solid #B7DDD7', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            title: 客厅摄像机
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
+            style: { left: 38%, top: 57%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
           - type: icon
             icon: mdi:door-closed-lock
-            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-            style: { left: 73%, top: 79%, color: '#9A6416', background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.24)' }
-          - type: state-label
+            title: 入户门锁
+            tap_action: { action: more-info }
             entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-            style: { left: 82%, top: 79%, color: '#7A4D14', background: 'rgba(255,249,241,.94)', border: '1px solid #E2C289', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            style: { left: 73%, top: 79%, color: '#9A6416', background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.18)' }
           - type: icon
             icon: mdi:washing-machine
-            tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
-            style: { left: 11%, top: 73%, color: '#187A77', background: '#FFF9F1', border: '2px solid #187A77', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(24,122,119,.24)' }
-          - type: state-label
-            entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
-            style: { left: 20%, top: 73%, color: '#155E5A', background: 'rgba(255,249,241,.94)', border: '1px solid #B7DDD7', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            title: 阳台洗衣机
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
+            style: { left: 11%, top: 73%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
       - type: custom:mushroom-template-card
         entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
         primary: 空间健康摘要

@@ -2,10 +2,8 @@ services:
   homeassistant:
     container_name: homeassistant-local
     image: ghcr.io/home-assistant/home-assistant:stable
-    ports:
-      - "8123:8123"
-      # HomeKit Bridge configuration uses this fixed HAP port.
-      - "21063:21063"
+    # HomeKit relies on LAN mDNS/Bonjour multicast discovery.
+    network_mode: host
     volumes:
       - ./config:/config
     environment:
