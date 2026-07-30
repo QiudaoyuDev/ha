@@ -1,0 +1,45 @@
+name: yuedu-camera-bridge
+
+services:
+  # 小米官方 Miloco 的社区封装镜像：负责授权、设备发现与私有 P2P 视频接入。
+  miloco:
+    image: ghcr.nju.edu.cn/miiot/miloco:main
+    container_name: yuedu-miloco
+    network_mode: host
+    environment:
+      BACKEND_PORT: ${MILOCO_PORT:-8000}
+      BACKEND_LOG_LEVEL: ${MILOCO_LOG_LEVEL:-warning}
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ./miloco:/app/miloco_server/.temp
+    restart: unless-stopped
+
+  # 统一输出 RTSP/WebRTC；不启用硬件转码，因此不需要 privileged 或 GPU。
+  go2rtc:
+    image: ghcr.nju.edu.cn/alexxit/go2rtc
+    container_name: yuedu-go2rtc
+    network_mode: host
+    environment:
+      TZ: ${TZ:-Asia/Shanghai}
+    volumes:
+      - ./go2rtc:/config
+    restart: unless-stopped
+
+  # 仅在完成小米账号绑定并填写 .env 后通过 --profile camera 启动。
+  micam1:
+    image: ghcr.nju.edu.cn/miiot/micam:main
+    container_name: yuedu-micam-living
+    profiles: ["camera"]
+    depends_on: [miloco, go2rtc]
+    environment:
+      MILOCO_BASE_URL: ${MILOCO_BASE_URL:-https://miloco:8000}
+      # 允许首次仅启动 Miloco/go2rtc；启动 micam1 前必须在 .env 填写这三个值。
+      MILOCO_PASSWORD: ${MILOCO_PASSWORD:-}
+      CAMERA_ID: ${CAMERA_ID:-}
+      RTSP_URL: ${RTSP_URL:-}
+      VIDEO_CODEC: ${VIDEO_CODEC:-hevc}
+      STREAM_CHANNEL: ${STREAM_CHANNEL:-0}
+      TZ: ${TZ:-Asia/Shanghai}
+    extra_hosts:
+      - "miloco:${MILOCO_HOST_IP:-host-gateway}"
+    restart: unless-stopped

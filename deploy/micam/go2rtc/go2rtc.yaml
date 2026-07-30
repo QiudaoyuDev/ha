@@ -1,0 +1,3 @@
+streams:
+  # Micam 会把小米摄像机推送到此流名称。
+  yuedu_living_camera:
