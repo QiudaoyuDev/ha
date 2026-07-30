@@ -1,1 +1,37 @@
-[]
+# 悦都提醒：只基于已确认的实体状态，不触发门锁远程动作。
+- id: yuedu_front_door_unlocked_reminder
+  alias: 悦都 · 入户门未锁提醒
+  description: 门锁状态连续五分钟不是“已上锁”时，创建本地提醒。
+  mode: single
+  triggers:
+    - trigger: template
+      value_template: >-
+        {{ states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021')
+           not in ['已上锁', 'unknown', 'unavailable'] }}
+      for: '00:05:00'
+  actions:
+    - action: persistent_notification.create
+      data:
+        notification_id: yuedu_front_door_unlocked
+        title: 悦都 · 入户门待确认
+        message: 入户门锁已连续 5 分钟不是“已上锁”状态，请现场确认门锁。
+
+- id: yuedu_washer_complete_reminder
+  alias: 悦都 · 洗衣完成提醒
+  description: 洗衣机状态进入完成类文案时，创建本地提醒。
+  mode: single
+  triggers:
+    - trigger: state
+      entity_id: sensor.mibx5_cn_2176693305_f94_status_p_2_2
+  conditions:
+    - condition: template
+      value_template: >-
+        {{ trigger.to_state is not none
+           and trigger.to_state.state not in ['unknown', 'unavailable', '已关机']
+           and ('完成' in trigger.to_state.state or '结束' in trigger.to_state.state) }}
+  actions:
+    - action: persistent_notification.create
+      data:
+        notification_id: yuedu_washer_complete
+        title: 悦都 · 洗衣完成
+        message: 阳台 A 洗衣机已完成任务，请及时取衣。

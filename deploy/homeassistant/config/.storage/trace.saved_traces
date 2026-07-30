@@ -2,5 +2,169 @@
   "version": 1,
   "minor_version": 1,
   "key": "trace.saved_traces",
-  "data": {}
+  "data": {
+    "automation.yuedu_washer_complete_reminder": [
+      {
+        "extended_dict": {
+          "last_step": "condition/0",
+          "run_id": "ea4e990e7761890577d993a70f4482cd",
+          "state": "stopped",
+          "script_execution": "failed_conditions",
+          "timestamp": {
+            "start": "2026-07-30T08:30:54.958277+00:00",
+            "finish": "2026-07-30T08:30:54.958796+00:00"
+          },
+          "domain": "automation",
+          "item_id": "yuedu_washer_complete_reminder",
+          "trigger": "state of sensor.mibx5_cn_2176693305_f94_status_p_2_2",
+          "trace": {
+            "trigger/0": [
+              {
+                "path": "trigger/0",
+                "timestamp": "2026-07-30T08:30:54.958323+00:00",
+                "changed_variables": {
+                  "this": {
+                    "entity_id": "automation.yue_du_xi_yi_wan_cheng_ti_xing",
+                    "state": "on",
+                    "attributes": {
+                      "id": "yuedu_washer_complete_reminder",
+                      "last_triggered": null,
+                      "mode": "single",
+                      "current": 0,
+                      "friendly_name": "\u60a6\u90fd \u00b7 \u6d17\u8863\u5b8c\u6210\u63d0\u9192"
+                    },
+                    "last_changed": "2026-07-30T08:30:37.079383+00:00",
+                    "last_reported": "2026-07-30T08:30:37.079383+00:00",
+                    "last_updated": "2026-07-30T08:30:37.079383+00:00",
+                    "context": {
+                      "id": "01KYS2B70QDVB0JVM3GJP5EA4X",
+                      "parent_id": null,
+                      "user_id": null
+                    }
+                  },
+                  "trigger": {
+                    "id": "0",
+                    "idx": "0",
+                    "alias": null,
+                    "platform": "state",
+                    "entity_id": "sensor.mibx5_cn_2176693305_f94_status_p_2_2",
+                    "from_state": {
+                      "entity_id": "sensor.mibx5_cn_2176693305_f94_status_p_2_2",
+                      "state": "unknown",
+                      "attributes": {
+                        "options": [
+                          "\u5f85\u673a\u4e2d",
+                          "\u6682\u505c\u4e2d",
+                          "\u5de5\u4f5c\u4e2d",
+                          "\u9884\u7ea6\u4e2d",
+                          "\u6d17\u6da4\u5b8c\u6210",
+                          "\u5df2\u5173\u673a"
+                        ],
+                        "device_class": "enum",
+                        "icon": "mdi:format-text",
+                        "friendly_name": "\u6d17\u8863\u673a  \u6d17\u8863\u673a \u5de5\u4f5c\u72b6\u6001"
+                      },
+                      "last_changed": "2026-07-30T08:30:51.290664+00:00",
+                      "last_reported": "2026-07-30T08:30:51.290664+00:00",
+                      "last_updated": "2026-07-30T08:30:51.290664+00:00",
+                      "context": {
+                        "id": "01KYS2BMWTTPQYHQXZQECMEHQ6",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "to_state": {
+                      "entity_id": "sensor.mibx5_cn_2176693305_f94_status_p_2_2",
+                      "state": "\u5df2\u5173\u673a",
+                      "attributes": {
+                        "options": [
+                          "\u5f85\u673a\u4e2d",
+                          "\u6682\u505c\u4e2d",
+                          "\u5de5\u4f5c\u4e2d",
+                          "\u9884\u7ea6\u4e2d",
+                          "\u6d17\u6da4\u5b8c\u6210",
+                          "\u5df2\u5173\u673a"
+                        ],
+                        "device_class": "enum",
+                        "icon": "mdi:format-text",
+                        "friendly_name": "\u6d17\u8863\u673a  \u6d17\u8863\u673a \u5de5\u4f5c\u72b6\u6001"
+                      },
+                      "last_changed": "2026-07-30T08:30:54.958185+00:00",
+                      "last_reported": "2026-07-30T08:30:54.958185+00:00",
+                      "last_updated": "2026-07-30T08:30:54.958185+00:00",
+                      "context": {
+                        "id": "01KYS2BRFE9XJQ9VNQKYHYTE0W",
+                        "parent_id": null,
+                        "user_id": null
+                      }
+                    },
+                    "for": null,
+                    "attribute": null,
+                    "description": "state of sensor.mibx5_cn_2176693305_f94_status_p_2_2"
+                  }
+                }
+              }
+            ],
+            "condition/0": [
+              {
+                "path": "condition/0",
+                "timestamp": "2026-07-30T08:30:54.958357+00:00",
+                "result": {
+                  "result": false,
+                  "entities": []
+                }
+              }
+            ]
+          },
+          "config": {
+            "id": "yuedu_washer_complete_reminder",
+            "alias": "\u60a6\u90fd \u00b7 \u6d17\u8863\u5b8c\u6210\u63d0\u9192",
+            "description": "\u6d17\u8863\u673a\u72b6\u6001\u8fdb\u5165\u5b8c\u6210\u7c7b\u6587\u6848\u65f6\uff0c\u521b\u5efa\u672c\u5730\u63d0\u9192\u3002",
+            "mode": "single",
+            "triggers": [
+              {
+                "trigger": "state",
+                "entity_id": "sensor.mibx5_cn_2176693305_f94_status_p_2_2"
+              }
+            ],
+            "conditions": [
+              {
+                "condition": "template",
+                "value_template": "{{ trigger.to_state is not none\n   and trigger.to_state.state not in ['unknown', 'unavailable', '\u5df2\u5173\u673a']\n   and ('\u5b8c\u6210' in trigger.to_state.state or '\u7ed3\u675f' in trigger.to_state.state) }}"
+              }
+            ],
+            "actions": [
+              {
+                "action": "persistent_notification.create",
+                "data": {
+                  "notification_id": "yuedu_washer_complete",
+                  "title": "\u60a6\u90fd \u00b7 \u6d17\u8863\u5b8c\u6210",
+                  "message": "\u9633\u53f0 A \u6d17\u8863\u673a\u5df2\u5b8c\u6210\u4efb\u52a1\uff0c\u8bf7\u53ca\u65f6\u53d6\u8863\u3002"
+                }
+              }
+            ]
+          },
+          "blueprint_inputs": null,
+          "context": {
+            "id": "01KYS2BRFE9TQBF1XCN388Q5GN",
+            "parent_id": "01KYS2BRFE9XJQ9VNQKYHYTE0W",
+            "user_id": null
+          }
+        },
+        "short_dict": {
+          "last_step": "condition/0",
+          "run_id": "ea4e990e7761890577d993a70f4482cd",
+          "state": "stopped",
+          "script_execution": "failed_conditions",
+          "timestamp": {
+            "start": "2026-07-30T08:30:54.958277+00:00",
+            "finish": "2026-07-30T08:30:54.958796+00:00"
+          },
+          "domain": "automation",
+          "item_id": "yuedu_washer_complete_reminder",
+          "trigger": "state of sensor.mibx5_cn_2176693305_f94_status_p_2_2"
+        }
+      }
+    ]
+  }
 }
