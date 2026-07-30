@@ -201,6 +201,17 @@ views:
           - type: custom:mushroom-title-card
             title: 客厅
             subtitle: 守护、入户与可见性
+          # 空间页先让家人看见“自己正在哪”，再进入具体设备控制。
+          - type: picture-elements
+            image: /local/floorplan/yuedu-home-2p5d.png
+            elements:
+              - type: icon
+                icon: mdi:sofa-outline
+                style: { left: 46%, top: 78%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+              - type: state-label
+                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                tap_action: { action: more-info }
+                style: { left: 61%, top: 78%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             primary: 客厅守护
@@ -253,6 +264,17 @@ views:
           - type: custom:mushroom-title-card
             title: 卧室 A
             subtitle: 温度、气流与睡眠
+          # 保留同一张户型底图，避免为 UI 引入不可靠的外部图库依赖。
+          - type: picture-elements
+            image: /local/floorplan/yuedu-home-2p5d.png
+            elements:
+              - type: icon
+                icon: mdi:bed-king-outline
+                style: { left: 28%, top: 30%, color: '#FFF9F1', background: 'rgba(23, 108, 147, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(23, 76, 101, .30)' }
+              - type: state-label
+                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                tap_action: { action: more-info }
+                style: { left: 44%, top: 30%, color: '#174C65', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
             primary: 睡眠环境
@@ -322,6 +344,16 @@ views:
           - type: custom:mushroom-title-card
             title: 阳台 A
             subtitle: 洗衣进度与设备维护
+          - type: picture-elements
+            image: /local/floorplan/yuedu-home-2p5d.png
+            elements:
+              - type: icon
+                icon: mdi:balcony
+                style: { left: 12%, top: 68%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+              - type: state-label
+                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                tap_action: { action: more-info }
+                style: { left: 30%, top: 68%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             primary: 洗衣任务
