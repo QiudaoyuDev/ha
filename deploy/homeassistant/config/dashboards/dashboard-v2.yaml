@@ -224,14 +224,16 @@ views:
                       tap_action:
                         action: perform-action
                         perform_action: button.press
-                        confirmation: true
                         target: { entity_id: button.chuangmi_cn_1143041027_069a01_stop_stream_a_9_2 }
                     - type: custom:mushroom-entity-card
                       entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
                       name: 摄像机电源
                       icon: mdi:power
                       icon_color: teal
-                      tap_action: { action: toggle }
+                      tap_action:
+                        action: toggle
+                        confirmation:
+                          text: 确认关闭摄像机？离家或守护状态下请确认不会影响安防。
                     - type: custom:mushroom-entity-card
                       entity: switch.chuangmi_cn_1143041027_069a01_motion_detection_p_5_1
                       name: 移动侦测
