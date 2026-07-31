@@ -13,6 +13,16 @@
         "id": "7c9afc7c0c3d464d9da6ba94fa5cb38e",
         "url": "/hacsfiles/Bubble-Card/bubble-card.js?hacstag=680112919325",
         "type": "module"
+      },
+      {
+        "id": "07ef2cadc0594818b8707ac530d9f058",
+        "url": "/hacsfiles/calendar-card-pro/calendar-card-pro.js?hacstag=939311749320",
+        "type": "module"
+      },
+      {
+        "id": "5c6f4122452246028a05458a29c46120",
+        "url": "/hacsfiles/clock-weather-card/clock-weather-card.js?hacstag=522634019294",
+        "type": "module"
       }
     ]
   }

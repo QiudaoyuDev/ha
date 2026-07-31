@@ -10,6 +10,9 @@
 | Bubble Card | 房间深度控制弹层 | `/hacsfiles/Bubble-Card/bubble-card.js` | HACS，现有资源记录 `hacstag=680112919325` |
 | Card Mod | 少量共享卡片样式 | `/local/community/lovelace-card-mod/card-mod.js?v=4.1.0` | `source/lovelace-card-mod/card-mod.js`，4.1.0 |
 | Button Card | 地图/设备状态徽标 | `/local/community/button-card/button-card.js?v=7.0.1` | button-card release v7.0.1 |
+| Clock Weather Card | 首页与墙屏天气时钟、天气趋势 | `/hacsfiles/clock-weather-card/clock-weather-card.js` | HACS |
+| Calendar Card Pro | 家庭未来日程与天气联动 | `/hacsfiles/calendar-card-pro/calendar-card-pro.js` | HACS |
+| Chinese Almanac | 农历/黄历实体与详情卡 | 由自定义集成自动注册 | HACS，自定义集成；不重复声明 JS |
 | 悦都暖雾 | Dashboard 全局视觉主题 | `config/themes/yuedu-frosted.yaml` | 本地派生主题，依赖 Card Mod |
 
 `dashboard-v2.yaml` 与 `dashboard-wall.yaml` 显式声明本地资源；Mushroom/Bubble 仍由 HACS 更新，避免手工复制覆盖 HACS 文件。升级任一资源时，同时更新本表、URL 版本参数并完成移动端/墙屏缓存刷新验证。

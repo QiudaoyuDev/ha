@@ -75,6 +75,46 @@ views:
       - type: grid
         cards:
           - type: custom:mushroom-title-card
+            title: 今日信息
+            subtitle: 时间 · 天气 · 家庭安排
+          - type: custom:clock-weather-card
+            entity: weather.wo_de_jia
+            title: 悦都
+            sun_entity: sun.sun
+            locale: zh-CN
+            time_format: 24
+            time_pattern: HH:mm
+            date_pattern: M月d日 cccc
+            animated_icon: true
+            weather_icon_type: line
+            forecast_rows: 3
+            show_humidity: true
+            use_browser_time: false
+          - type: custom:calendar-card-pro
+            entities:
+              - entity: calendar.calendar_yuedu_family
+                accent_color: var(--primary-color)
+                show_location: false
+              - entity: calendar.calendar_yuedu_birthdays
+                accent_color: var(--warning-color)
+                show_location: false
+            days_to_show: 3
+            compact_events_to_show: 3
+            show_empty_days: false
+            filter_duplicates: true
+            language: zh
+            show_month: false
+            tap_action: { action: navigate, navigation_path: /yuedu-home/agenda }
+          - type: custom:mushroom-template-card
+            entity: sensor.yue_du_jin_ri_li_fa_zhai_yao
+            primary: 今日农历
+            secondary: "{{ states(entity) }}"
+            icon: mdi:calendar-star
+            icon_color: amber
+            tap_action: { action: navigate, navigation_path: /yuedu-home/agenda }
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
             title: 客厅守护
             subtitle: 按需播放 · 静音 · 不录像
           - type: conditional

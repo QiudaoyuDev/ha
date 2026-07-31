@@ -6,6 +6,10 @@ resources:
     type: module
   - url: /local/community/button-card/button-card.js?v=7.0.1
     type: module
+  - url: /hacsfiles/clock-weather-card/clock-weather-card.js
+    type: module
+  - url: /hacsfiles/calendar-card-pro/calendar-card-pro.js
+    type: module
 title: 悦都全屋
 views:
   - title: 我的家
@@ -63,6 +67,54 @@ views:
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
                 tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
                 style: { left: 14%, top: 76%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: 今日信息
+            subtitle: 时间、天气与家庭安排
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: binary_sensor.yue_du_tian_qi_shu_ju_ke_yong
+                state: "on"
+            card:
+              type: custom:clock-weather-card
+              entity: weather.wo_de_jia
+              title: 悦都
+              sun_entity: sun.sun
+              locale: zh-CN
+              time_format: 24
+              time_pattern: HH:mm
+              date_pattern: yyyy年M月d日 cccc
+              weather_icon_type: line
+              animated_icon: true
+              forecast_rows: 4
+              show_humidity: true
+              hide_today_section: false
+              hide_forecast_section: false
+              hourly_forecast: false
+              use_browser_time: false
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: binary_sensor.yue_du_tian_qi_shu_ju_ke_yong
+                state: "off"
+            card:
+              type: custom:mushroom-template-card
+              entity: sensor.yue_du_tian_qi_zhai_yao
+              primary: 天气服务暂不可用
+              secondary: 稍后会自动恢复，不影响家庭设备控制
+              icon: mdi:weather-cloudy-alert
+              icon_color: amber
+              multiline_secondary: true
+          - type: custom:mushroom-template-card
+            entity: sensor.yue_du_jin_ri_li_fa_zhai_yao
+            primary: 今日万年历
+            secondary: "{{ states(entity) }}"
+            icon: mdi:calendar-star
+            icon_color: amber
+            multiline_secondary: true
+            tap_action: { action: navigate, navigation_path: /yuedu-home/agenda }
       - type: grid
         cards:
           - type: custom:mushroom-chips-card
@@ -860,3 +912,95 @@ views:
         icon: mdi:shower
         icon_color: teal
         multiline_secondary: true
+
+  - title: 天气日历
+    path: agenda
+    icon: mdi:calendar-weather
+    type: sections
+    max_columns: 2
+    theme: 悦都暖雾
+    sections:
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: 天气
+            subtitle: 今天与未来趋势
+          - type: custom:clock-weather-card
+            entity: weather.wo_de_jia
+            title: 悦都天气
+            sun_entity: sun.sun
+            locale: zh-CN
+            time_format: 24
+            time_pattern: HH:mm
+            date_pattern: yyyy年M月d日 cccc
+            animated_icon: true
+            weather_icon_type: line
+            forecast_rows: 5
+            show_humidity: true
+            use_browser_time: false
+          - type: weather-forecast
+            entity: weather.wo_de_jia
+            name: 逐小时天气
+            show_current: false
+            show_forecast: true
+            forecast_type: hourly
+            secondary_info_attribute: precipitation
+            round_temperature: true
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: 家庭日程
+            subtitle: 未来 7 天的重要安排
+          - type: custom:calendar-card-pro
+            title: 悦都家庭安排
+            entities:
+              - entity: calendar.calendar_yuedu_family
+                label: mdi:home-heart
+                accent_color: var(--primary-color)
+                show_location: false
+              - entity: calendar.calendar_yuedu_birthdays
+                label: mdi:cake-variant
+                accent_color: var(--warning-color)
+                show_location: false
+            days_to_show: 7
+            compact_events_to_show: 5
+            show_empty_days: true
+            filter_duplicates: true
+            split_multiday_events: true
+            language: zh
+            show_month: true
+            show_week_numbers: iso
+            show_countdown: true
+            show_progress_bar: true
+            tap_action: { action: expand }
+            weather:
+              entity: weather.wo_de_jia
+              position: date
+              date:
+                show_conditions: true
+                show_high_temp: true
+                show_low_temp: true
+                show_uv_index: false
+                icon_size: 16px
+                font_size: 12px
+                color: var(--secondary-text-color)
+            card_mod:
+              style: |
+                ha-card {
+                  border-radius: var(--ha-card-border-radius, 18px);
+                  overflow: hidden;
+                }
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: 万年历
+            subtitle: 农历、节气、节日与传统历法
+          - type: custom:almanac-card
+            title: 悦都万年历
+            prefix: chinese_almanac_
+          - type: custom:mushroom-template-card
+            primary: 历法说明
+            secondary: 农历与节气由本地自定义集成计算；传统宜忌仅作文化信息展示，不参与设备自动化。
+            icon: mdi:information-outline
+            icon_color: grey
+            multiline_secondary: true

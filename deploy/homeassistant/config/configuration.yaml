@@ -12,7 +12,7 @@ frontend:
 
 # UI only consumes these semantic, Chinese display states.  Integration values
 # remain untouched and can still be inspected from Developer Tools.
-template: !include templates/yuedu_ui.yaml
+template: !include_dir_merge_list templates
 
 automation: !include automations.yaml
 script: !include scripts.yaml

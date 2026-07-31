@@ -1,0 +1,46 @@
+# 天气、家庭日历与万年历语义层。Dashboard 只引用这些稳定的中文摘要实体。
+# Chinese Almanac 的实体 ID 必须以运行实例为准，未确认前保留占位符。
+# 当前运行实例的 Open-Meteo Enhanced 天气实体是 weather.wo_de_jia。
+- binary_sensor:
+    - name: 悦都天气数据可用
+      unique_id: yuedu_weather_available
+      icon: mdi:weather-partly-cloudy
+      state: >-
+        {{ states('weather.wo_de_jia') not in ['unknown', 'unavailable', 'none', 'None', ''] }}
+
+- sensor:
+    - name: 悦都天气摘要
+      unique_id: yuedu_weather_summary
+      icon: mdi:weather-partly-cloudy
+      state: >-
+        {% set entity = 'weather.wo_de_jia' %}
+        {% set value = states(entity) %}
+        {% set temp = state_attr(entity, 'temperature') %}
+        {% set humidity = state_attr(entity, 'humidity') %}
+        {% set map = {
+          'sunny': '晴', 'clear-night': '晴朗夜间', 'partlycloudy': '多云间晴',
+          'cloudy': '多云', 'rainy': '有雨', 'pouring': '大雨',
+          'lightning-rainy': '雷阵雨', 'windy': '有风', 'fog': '有雾', 'snowy': '有雪'
+        } %}
+        {% if value in ['unknown', 'unavailable', 'none', 'None', ''] %}
+          天气数据暂不可用
+        {% else %}
+          {{ map.get(value, value) }}{% if temp is number %} · {{ temp | round(1) }}°C{% endif %}{% if humidity is number %} · 湿度 {{ humidity | round(0) }}%{% endif %}
+        {% endif %}
+      attributes:
+        available: >-
+          {{ states('weather.wo_de_jia') not in ['unknown', 'unavailable', 'none', 'None', ''] }}
+
+    - name: 悦都今日历法摘要
+      unique_id: yuedu_almanac_summary
+      icon: mdi:calendar-star
+      state: >-
+        {% set lunar = states('sensor.zhong_guo_lao_huang_li_nong_li') %}
+        {% set term = states('sensor.zhong_guo_lao_huang_li_jie_qi') %}
+        {% set festival = states('sensor.zhong_guo_lao_huang_li_jin_ri_jie_ri') %}
+        {% set invalid = ['unknown', 'unavailable', 'none', 'None', ''] %}
+        {% if lunar in invalid %}
+          农历数据暂不可用
+        {% else %}
+          {{ lunar }}{% if term not in invalid %} · {{ term }}{% endif %}{% if festival not in invalid and festival != '暂无节日' %} · {{ festival }}{% endif %}
+        {% endif %}
