@@ -2,6 +2,10 @@
 # Loads default set of integrations. Do not remove.
 default_config:
 
+# 摄像机桥接为可选依赖：桥接未启动时只显示离线语义，不伪造视频。
+go2rtc:
+  url: http://host.docker.internal:1984
+
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
@@ -24,6 +28,13 @@ lovelace:
       show_in_sidebar: true
       require_admin: false
       filename: dashboards/dashboard-v2.yaml
+    yuedu-wall:
+      mode: yaml
+      title: 悦都墙屏
+      icon: mdi:tablet-dashboard
+      show_in_sidebar: false
+      require_admin: false
+      filename: dashboards/dashboard-wall.yaml
 
 
 # Apple Home / Siri bridge for the safe YueDu device subset.

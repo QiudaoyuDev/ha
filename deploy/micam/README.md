@@ -17,7 +17,7 @@ docker compose up -d miloco go2rtc
 docker compose --profile camera up -d micam1
 ```
 
-验证 RTSP 输出：`rtsp://127.0.0.1:8554/yuedu_living_camera`。
+验证 RTSP 输出：宿主机播放器使用 `rtsp://127.0.0.1:8554/yuedu_living_camera`；`micam1` 容器内部使用 `rtsp://host.docker.internal:8554/yuedu_living_camera`。
 
 ## 安全约束
 

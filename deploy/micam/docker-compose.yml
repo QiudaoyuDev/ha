@@ -42,4 +42,5 @@ services:
       TZ: ${TZ:-Asia/Shanghai}
     extra_hosts:
       - "miloco:${MILOCO_HOST_IP:-host-gateway}"
+      - "host.docker.internal:host-gateway"
     restart: unless-stopped

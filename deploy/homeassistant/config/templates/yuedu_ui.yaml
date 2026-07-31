@@ -24,6 +24,16 @@
       attributes:
         area: 客厅
 
+    - name: 悦都客厅实时流状态
+      unique_id: yuedu_living_stream_display_state
+      state: >-
+        {% set value = states('camera.yuedu_living_camera') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% else %}实时流可用{% endif %}
+      attributes:
+        area: 客厅
+        privacy: 按需播放，无录像
+
     - name: 悦都空调展示状态
       unique_id: yuedu_ac_display_state
       state: >-
