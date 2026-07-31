@@ -1,0 +1,66 @@
+# 全屋晶璃 Lite：标准主题的无模糊降级版，供墙屏和低性能设备使用。
+全屋晶璃 Lite:
+  modes:
+    light: {}
+    dark: {}
+  card-mod-theme: "全屋晶璃 Lite"
+  background-image: "center / cover no-repeat fixed url('/local/backgrounds/crystal-home-light.webp')"
+  lovelace-background: "var(--crystal-background-image)"
+  primary-color: "#5A67D8"
+  accent-color: "#6C63FF"
+  primary-text-color: "rgba(22, 28, 58, 0.96)"
+  secondary-text-color: "rgba(44, 54, 88, 0.76)"
+  primary-background-color: "#E8EDF8"
+  secondary-background-color: "#DDE5F3"
+  card-background-color: "rgba(255, 255, 255, 0.72)"
+  divider-color: "rgba(105, 119, 168, 0.24)"
+  app-header-background-color: "#E8EDF8"
+  app-header-text-color: "rgba(22, 28, 58, 0.96)"
+  sidebar-background-color: "#DDE5F3"
+  sidebar-text-color: "rgba(22, 28, 58, 0.84)"
+  sidebar-selected-background-color: "rgba(90, 103, 216, 0.18)"
+  sidebar-selected-text-color: "#3F4BB3"
+  state-icon-color: "rgba(44, 54, 88, 0.58)"
+  state-icon-active-color: "#5A67D8"
+  success-color: "#2E9F78"
+  warning-color: "#C98224"
+  error-color: "#C94B69"
+  input-fill-color: "rgba(255, 255, 255, 0.86)"
+  input-ink-color: "rgba(22, 28, 58, 0.96)"
+  switch-checked-button-color: "#5A67D8"
+  switch-checked-track-color: "rgba(90, 103, 216, 0.52)"
+  paper-slider-active-color: "#5A67D8"
+  paper-slider-knob-color: "#5A67D8"
+  crystal-primary: "#5A67D8"
+  crystal-accent: "#6C63FF"
+  crystal-success: "#2E9F78"
+  crystal-warning: "#C98224"
+  crystal-error: "#C94B69"
+  crystal-offline: "#68738B"
+  crystal-glass-bg: "rgba(255, 255, 255, 0.72)"
+  crystal-glass-border: "rgba(255, 255, 255, 0.92)"
+  crystal-glass-shadow: "0 8px 20px rgba(37, 47, 96, 0.12)"
+  crystal-glass-blur: "none"
+  crystal-marker-bg: "rgba(255, 255, 255, 0.88)"
+  crystal-marker-border: "rgba(90, 103, 216, 0.38)"
+  crystal-marker-shadow: "0 6px 14px rgba(37, 47, 96, 0.14)"
+  crystal-control-bg: "rgba(255, 255, 255, 0.88)"
+  crystal-popup-bg: "#E8EDF8"
+  crystal-video-bg: "#080D1D"
+  card-mod-root: |
+    :host {
+      --ha-card-background: var(--crystal-glass-bg);
+      --ha-card-border-width: 1px;
+      --ha-card-border-color: var(--crystal-glass-border);
+      --ha-card-box-shadow: var(--crystal-glass-shadow);
+      --ha-card-backdrop-filter: none;
+      --ha-card-glass-tint: transparent;
+      --ha-card-glass-inset-shadow: 1px 1px 0 rgba(255, 255, 255, 0.72) inset;
+    }
+  card-mod-card: |
+    ha-card { position: relative; isolation: isolate; overflow: hidden; background: var(--crystal-glass-bg); border: var(--ha-card-border-width) solid var(--ha-card-border-color); border-radius: 20px; box-shadow: var(--ha-card-box-shadow); }
+    ha-card::before { content: none !important; }
+    :host(hui-picture-elements-card) ha-card, :host(hui-camera-card) ha-card, :host(hui-image-card) ha-card { background: var(--crystal-video-bg) !important; box-shadow: var(--ha-card-box-shadow) !important; }
+    :host(mushroom-title-card) ha-card, :host(mushroom-chips-card) ha-card, :host(.type-custom-bubble-card) ha-card, :host(.type-custom-button-card) ha-card { background: transparent !important; border: none !important; box-shadow: none !important; }
+    ha-card ha-card, ha-card ha-select, ha-card mwc-menu, ha-card ha-dialog, ha-card hui-dialog-edit-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+    :host(.text-only) ha-card { background: none !important; box-shadow: none !important; }
