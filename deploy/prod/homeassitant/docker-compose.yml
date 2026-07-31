@@ -1,0 +1,11 @@
+services:
+  homeassistant:
+    container_name: homeassistant-local
+    image: ghcr.io/home-assistant/home-assistant:stable
+    # HomeKit relies on LAN mDNS/Bonjour multicast discovery.
+    network_mode: host
+    volumes:
+      - ./config:/config
+    environment:
+      TZ: Asia/Shanghai
+    restart: unless-stopped

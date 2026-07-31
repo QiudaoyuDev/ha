@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "homekit.01KYRZKJMCMES6T7S6DMWECE34.aids",
+  "data": {
+    "allocations": {
+      "xiaomi_home.climate.xiaomi_home.xiaomi_cn_2231050284_h69h00": 82634875,
+      "xiaomi_home.fan.xiaomi_home.xiaomi_cn_922697707_p51_s_2_Fan": 2916728813,
+      "xiaomi_home.switch.xiaomi_home.chuangmi_cn_1143041027_069a01_on_p_2_1": 2209864363,
+      "xiaomi_home.switch.xiaomi_home.mibx5_cn_2176693305_f94_on_p_2_1": 2336850211
+    }
+  }
+}

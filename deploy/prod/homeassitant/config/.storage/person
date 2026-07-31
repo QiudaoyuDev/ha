@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "minor_version": 1,
+  "key": "person",
+  "data": {
+    "items": [
+      {
+        "id": "lzx",
+        "name": "lzx",
+        "user_id": "e7575fcc35e7460a96b48550441f2168",
+        "device_trackers": [
+          "device_tracker.lzx"
+        ]
+      }
+    ]
+  }
+}

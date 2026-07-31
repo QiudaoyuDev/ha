@@ -1,0 +1,80 @@
+# 悦都全屋 UI 状态映射。这里是唯一允许读取集成原始状态的位置；
+# 仪表盘只展示这些中文语义状态，绝不把 unavailable / unknown / None 交给家人。
+- sensor:
+    - name: 悦都门锁展示状态
+      unique_id: yuedu_door_display_state
+      state: >-
+        {% set value = states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% elif value | lower in ['locked', 'lock'] or value in ['已上锁', '锁定'] %}已上锁
+        {% elif value | lower in ['unlocked', 'unlock'] or value in ['未上锁', '已解锁'] %}未上锁
+        {% else %}门锁状态已同步{% endif %}
+      attributes:
+        area: 客厅入户
+        offline: "{{ states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021') in ['unavailable', 'unknown', 'none', 'None', ''] }}"
+
+    - name: 悦都摄像机展示状态
+      unique_id: yuedu_camera_display_state
+      state: >-
+        {% set value = states('switch.chuangmi_cn_1143041027_069a01_on_p_2_1') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% elif value == 'on' %}守护中
+        {% elif value == 'off' %}已关闭
+        {% else %}状态已同步{% endif %}
+      attributes:
+        area: 客厅
+
+    - name: 悦都空调展示状态
+      unique_id: yuedu_ac_display_state
+      state: >-
+        {% set value = states('climate.xiaomi_cn_2231050284_h69h00') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% elif value == 'off' %}已关闭
+        {% elif value in ['cool', 'heat', 'dry', 'fan_only', 'auto', 'heat_cool'] %}运行中
+        {% else %}状态已同步{% endif %}
+      attributes:
+        area: 卧室 A
+        temperature: >-
+          {% set value = state_attr('climate.xiaomi_cn_2231050284_h69h00', 'current_temperature') %}
+          {{ value if value is number else '--' }}
+
+    - name: 悦都循环扇展示状态
+      unique_id: yuedu_fan_display_state
+      state: >-
+        {% set value = states('fan.xiaomi_cn_922697707_p51_s_2_fan') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% elif value == 'on' %}送风中
+        {% elif value == 'off' %}已关闭
+        {% else %}状态已同步{% endif %}
+      attributes:
+        area: 卧室 A
+
+    - name: 悦都洗衣机展示状态
+      unique_id: yuedu_washer_display_state
+      state: >-
+        {% set value = states('sensor.mibx5_cn_2176693305_f94_status_p_2_2') %}
+        {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
+        {% elif value | lower in ['off', 'idle', 'standby'] or value in ['已关机', '待机'] %}待机
+        {% elif value | lower in ['washing', 'running'] or value in ['洗涤中', '运行中'] %}洗涤中
+        {% elif value | lower in ['finished', 'complete'] or value in ['已完成', '洗涤完成'] %}任务完成
+        {% else %}状态已同步{% endif %}
+      attributes:
+        area: 阳台 A
+
+    - name: 悦都全屋展示状态
+      unique_id: yuedu_home_display_state
+      state: >-
+        {% set items = [
+          states('sensor.yue_du_men_suo_zhan_shi_zhuang_tai'),
+          states('sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai'),
+          states('sensor.yue_du_kong_diao_zhan_shi_zhuang_tai'),
+          states('sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai'),
+          states('sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai')
+        ] %}
+        {% set offline = items | select('eq', '设备离线') | list | count %}
+        {% if offline > 0 %}{{ offline }} 台设备离线
+        {% else %}全屋状态正常{% endif %}
+      attributes:
+        offline_count: >-
+          {% set items = [states('sensor.yue_du_men_suo_zhan_shi_zhuang_tai'), states('sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai'), states('sensor.yue_du_kong_diao_zhan_shi_zhuang_tai'), states('sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai'), states('sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai')] %}
+          {{ items | select('eq', '设备离线') | list | count }}
