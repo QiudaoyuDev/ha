@@ -42,6 +42,7 @@
   crystal-glass-shadow: "0 8px 20px rgba(37, 47, 96, 0.12)"
   crystal-glass-blur: "none"
   crystal-marker-bg: "rgba(255, 255, 255, 0.88)"
+  crystal-marker-icon: "#3F4BB3"
   crystal-marker-border: "rgba(90, 103, 216, 0.38)"
   crystal-marker-shadow: "0 6px 14px rgba(37, 47, 96, 0.14)"
   crystal-control-bg: "rgba(255, 255, 255, 0.88)"

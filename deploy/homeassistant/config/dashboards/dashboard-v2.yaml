@@ -17,7 +17,7 @@ views:
     icon: mdi:home-variant-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     sections:
       - type: grid
         cards:
@@ -44,29 +44,29 @@ views:
                 icon: mdi:sofa-outline
                 title: 客厅
                 tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-                style: { left: 45%, top: 61%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
+                style: { left: 45%, top: 61%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
               - type: icon
                 icon: mdi:bed-king-outline
                 title: 主卧
                 tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-                style: { left: 31%, top: 30%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
+                style: { left: 31%, top: 30%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
               - type: icon
                 icon: mdi:balcony
                 title: 阳台
                 tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
-                style: { left: 13%, top: 76%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
+                style: { left: 13%, top: 76%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
               - type: state-label
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
                 tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
-                style: { left: 29%, top: 29%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+                style: { left: 29%, top: 29%, color: var(--primary-text-color), background: var(--crystal-control-bg), border: '1px solid var(--crystal-glass-border)', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
               - type: state-label
                 entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
                 tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
-                style: { left: 41%, top: 67%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+                style: { left: 41%, top: 67%, color: var(--primary-text-color), background: var(--crystal-control-bg), border: '1px solid var(--crystal-glass-border)', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
               - type: state-label
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
                 tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
-                style: { left: 14%, top: 76%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+                style: { left: 14%, top: 76%, color: var(--primary-text-color), background: var(--crystal-control-bg), border: '1px solid var(--crystal-glass-border)', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
       - type: grid
         cards:
           - type: custom:mushroom-title-card
@@ -94,20 +94,6 @@ views:
               hide_forecast_section: false
               hourly_forecast: false
               use_browser_time: false
-          - type: conditional
-            conditions:
-              - condition: state
-                entity: binary_sensor.yue_du_tian_qi_shu_ju_ke_yong
-                state: "on"
-            card:
-              type: weather-forecast
-              entity: weather.wo_de_jia
-              name: 未来 5 天天气趋势
-              show_current: false
-              show_forecast: true
-              forecast_type: daily
-              secondary_info_attribute: precipitation
-              round_temperature: true
           - type: conditional
             conditions:
               - condition: state
@@ -152,43 +138,6 @@ views:
                 icon_color: teal
                 content: "洗衣 {{ states(entity) }}"
                 tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
-          - type: custom:mushroom-title-card
-            title: 常用空间
-            subtitle: 先看状态，需要时再进入控制
-          - type: grid
-            columns: 2
-            square: false
-            cards:
-              - type: custom:mushroom-template-card
-                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-                primary: 客厅守护
-                secondary: "摄像机 {{ states(entity) }}"
-                icon: mdi:sofa-outline
-                icon_color: teal
-                tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
-              - type: custom:mushroom-template-card
-                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-                primary: 主卧舒适
-                secondary: >-
-                  {% set temp = state_attr(entity, 'temperature') %}
-                  {{ states(entity) }}{% if temp != '--' %} · {{ temp }}°{% endif %}
-                icon: mdi:bed-king-outline
-                icon_color: blue
-                tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
-              - type: custom:mushroom-template-card
-                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-                primary: 阳台任务
-                secondary: "洗衣机 {{ states(entity) }}"
-                icon: mdi:balcony
-                icon_color: teal
-                tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
-              - type: custom:mushroom-template-card
-                entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
-                primary: 门锁
-                secondary: "{{ states(entity) }} · 只读安全状态"
-                icon: mdi:door-closed-lock
-                icon_color: amber
-                tap_action: { action: more-info }
       - type: grid
         cards:
           - type: custom:mushroom-title-card
@@ -206,6 +155,8 @@ views:
                 tap_action:
                   action: perform-action
                   perform_action: script.turn_on
+                  confirmation:
+                    text: 确认启动离家模式？这会改变摄像机守护和风扇状态。
                   target: { entity_id: script.yuedu_away_mode }
               - type: custom:mushroom-template-card
                 primary: 睡眠模式
@@ -216,20 +167,6 @@ views:
                   action: perform-action
                   perform_action: script.turn_on
                   target: { entity_id: script.yuedu_sleep_mode }
-      - type: grid
-        cards:
-          - type: custom:mushroom-template-card
-            primary: 卧室 B
-            secondary: 等待接入设备
-            icon: mdi:bed-single-outline
-            icon_color: grey
-            tap_action: { action: navigate, navigation_path: /yuedu-home/bedroom-b }
-          - type: custom:mushroom-template-card
-            primary: 厨房与卫浴
-            secondary: 安全优先的预留空间
-            icon: mdi:countertop-outline
-            icon_color: brown
-            tap_action: { action: navigate, navigation_path: /yuedu-home/service-spaces }
       # Bubble 只承担按需展开的深度控制；实体卡仍由 Mushroom 负责。
       - type: grid
         cards:
