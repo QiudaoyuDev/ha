@@ -615,11 +615,11 @@ views:
             elements:
               - type: icon
                 icon: mdi:sofa-outline
-                style: { left: 46%, top: 78%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+                style: { left: 46%, top: 78%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px var(--crystal-marker-shadow)' }
               - type: state-label
                 entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
-                style: { left: 61%, top: 78%, color: var(--primary-text-color), background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+                style: { left: 61%, top: 78%, color: var(--primary-text-color), background: var(--crystal-control-bg), border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             primary: 客厅守护
@@ -678,11 +678,11 @@ views:
             elements:
               - type: icon
                 icon: mdi:bed-king-outline
-                style: { left: 28%, top: 30%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(23, 76, 101, .30)' }
+                style: { left: 28%, top: 30%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px var(--crystal-marker-shadow)' }
               - type: state-label
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
-                style: { left: 44%, top: 30%, color: '#174C65', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+                style: { left: 44%, top: 30%, color: var(--primary-text-color), background: var(--crystal-control-bg), border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
             primary: 睡眠环境
@@ -757,11 +757,11 @@ views:
             elements:
               - type: icon
                 icon: mdi:balcony
-                style: { left: 12%, top: 68%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+                style: { left: 12%, top: 68%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px var(--crystal-marker-shadow)' }
               - type: state-label
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
-                style: { left: 30%, top: 68%, color: var(--primary-text-color), background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+                style: { left: 30%, top: 68%, color: var(--primary-text-color), background: var(--crystal-control-bg), border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             primary: 洗衣任务
@@ -919,7 +919,7 @@ views:
             card_mod:
               style: |
                 ha-card {
-                  border-radius: var(--ha-card-border-radius, 18px);
+                  border-radius: 22px;
                   overflow: hidden;
                 }
       - type: grid
