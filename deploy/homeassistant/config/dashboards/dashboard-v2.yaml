@@ -1,5 +1,11 @@
-# 悦都全屋 Dashboard v4
+# 悦都全屋 Dashboard v5
 # 家不是设备列表：总览讲状态，户型讲空间，房间页只展示当下可用的控制。
+# 资源由本文件声明，版本号用于移动端缓存失效；Mushroom/Bubble 继续由 HACS 管理。
+resources:
+  - url: /local/community/lovelace-card-mod/card-mod.js?v=4.1.0
+    type: module
+  - url: /local/community/button-card/button-card.js?v=7.0.1
+    type: module
 title: 悦都全屋
 views:
   - title: 我的家
@@ -30,6 +36,21 @@ views:
           - type: picture-elements
             image: /local/floorplan/yuedu-home-2p5d.png
             elements:
+              - type: icon
+                icon: mdi:sofa-outline
+                title: 客厅
+                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                style: { left: 45%, top: 61%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
+              - type: icon
+                icon: mdi:bed-king-outline
+                title: 主卧
+                tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
+                style: { left: 31%, top: 30%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
+              - type: icon
+                icon: mdi:balcony
+                title: 阳台
+                tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
+                style: { left: 13%, top: 76%, color: '#FFF9F1', background: 'rgba(22,125,122,.96)', border: '2px solid #FFF9F1', border-radius: 50%, padding: 7px, box-shadow: '0 5px 14px rgba(21,94,90,.30)' }
               - type: state-label
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
                 tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
@@ -500,33 +521,39 @@ views:
         subtitle: 点击设备标记，进入对应空间
       - type: picture-elements
         image: /local/floorplan/yuedu-home-2p5d.png
+        card_mod:
+          style: |
+            ha-card {
+              overflow: hidden;
+              border: 1px solid var(--yuedu-divider-color);
+              box-shadow: var(--yuedu-card-shadow);
+            }
         elements:
-          - type: icon
-            icon: mdi:air-conditioner
+          - type: state-icon
+            entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
             title: 主卧空调
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 29%, top: 31%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:fan
+            style: { left: 29%, top: 31%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+          - type: state-icon
+            entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
             title: 主卧循环扇
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 38%, top: 39%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:cctv
+            style: { left: 38%, top: 39%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+          - type: state-icon
+            entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             title: 客厅摄像机
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
-            style: { left: 38%, top: 57%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:door-closed-lock
+            style: { left: 38%, top: 57%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+          - type: state-icon
+            entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
             title: 入户门锁
             tap_action: { action: more-info }
-            entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
-            style: { left: 73%, top: 79%, color: '#9A6416', background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.18)' }
-          - type: icon
-            icon: mdi:washing-machine
+            style: { left: 73%, top: 79%, background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.18)' }
+          - type: state-icon
+            entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             title: 阳台洗衣机
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
-            style: { left: 11%, top: 73%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+            style: { left: 11%, top: 73%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
       - type: custom:mushroom-template-card
         entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
         primary: 空间健康摘要
@@ -536,6 +563,55 @@ views:
         icon: mdi:map-marker-radius-outline
         icon_color: amber
         multiline_secondary: true
+      - type: grid
+        columns: 3
+        square: false
+        cards:
+          - type: custom:button-card
+            entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+            name: 主卧空调
+            icon: mdi:air-conditioner
+            show_state: true
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
+            styles:
+              card: [padding: 12px, border-radius: 16px]
+              name: [font-size: 12px, font-weight: 700]
+              state: [font-size: 11px]
+            state:
+              - value: 设备离线
+                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
+              - value: 运行中
+                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
+          - type: custom:button-card
+            entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+            name: 客厅摄像机
+            icon: mdi:cctv
+            show_state: true
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
+            styles:
+              card: [padding: 12px, border-radius: 16px]
+              name: [font-size: 12px, font-weight: 700]
+              state: [font-size: 11px]
+            state:
+              - value: 设备离线
+                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
+              - value: 守护中
+                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
+          - type: custom:button-card
+            entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+            name: 阳台洗衣机
+            icon: mdi:washing-machine
+            show_state: true
+            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
+            styles:
+              card: [padding: 12px, border-radius: 16px]
+              name: [font-size: 12px, font-weight: 700]
+              state: [font-size: 11px]
+            state:
+              - value: 设备离线
+                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
+              - value: 洗涤中
+                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
 
   - title: 客厅
     path: living

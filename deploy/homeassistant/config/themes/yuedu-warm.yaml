@@ -26,5 +26,12 @@
   success-color: "#167D7A"
   warning-color: "#B7791F"
   error-color: "#B54A41"
+  # UI 令牌：供 Button Card/Card Mod 与后续共享卡片模板复用。
+  yuedu-accent-color: "#167D7A"
+  yuedu-warning-color: "#B7791F"
+  yuedu-error-color: "#B54A41"
+  yuedu-divider-color: "#DEC9B3"
+  yuedu-card-shadow: "0 8px 24px rgba(96, 67, 40, 0.08)"
+  yuedu-card-radius: "20px"
   lovelace-background: "radial-gradient(circle at 8% 0%, #F7F1E7 0, #F1E7DA 44%, #E9DDCF 100%)"
   masonry-view-card-margin: "10px"

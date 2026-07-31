@@ -3,6 +3,7 @@
 - sensor:
     - name: 悦都门锁展示状态
       unique_id: yuedu_door_display_state
+      icon: mdi:door-closed-lock
       state: >-
         {% set value = states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -15,6 +16,7 @@
 
     - name: 悦都摄像机展示状态
       unique_id: yuedu_camera_display_state
+      icon: mdi:cctv
       state: >-
         {% set value = states('switch.chuangmi_cn_1143041027_069a01_on_p_2_1') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -26,6 +28,7 @@
 
     - name: 悦都客厅实时流状态
       unique_id: yuedu_living_stream_display_state
+      icon: mdi:video-wireless-outline
       state: >-
         {% set value = states('camera.yuedu_living_camera') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -36,6 +39,7 @@
 
     - name: 悦都空调展示状态
       unique_id: yuedu_ac_display_state
+      icon: mdi:air-conditioner
       state: >-
         {% set value = states('climate.xiaomi_cn_2231050284_h69h00') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -50,6 +54,7 @@
 
     - name: 悦都循环扇展示状态
       unique_id: yuedu_fan_display_state
+      icon: mdi:fan
       state: >-
         {% set value = states('fan.xiaomi_cn_922697707_p51_s_2_fan') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -61,6 +66,7 @@
 
     - name: 悦都洗衣机展示状态
       unique_id: yuedu_washer_display_state
+      icon: mdi:washing-machine
       state: >-
         {% set value = states('sensor.mibx5_cn_2176693305_f94_status_p_2_2') %}
         {% if value in ['unavailable', 'unknown', 'none', 'None', ''] %}设备离线
@@ -73,6 +79,7 @@
 
     - name: 悦都全屋展示状态
       unique_id: yuedu_home_display_state
+      icon: mdi:home-heart
       state: >-
         {% set items = [
           states('sensor.yue_du_men_suo_zhan_shi_zhuang_tai'),

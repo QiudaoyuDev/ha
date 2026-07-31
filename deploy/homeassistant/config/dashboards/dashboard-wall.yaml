@@ -1,4 +1,10 @@
 # 悦都墙屏：横屏常驻总览。视频实体接入前，视频区保持明确离线态。
+# 与移动端共享本地 Card Mod/Button Card 资源；Mushroom/Bubble 由 HACS 管理。
+resources:
+  - url: /local/community/lovelace-card-mod/card-mod.js?v=4.1.0
+    type: module
+  - url: /local/community/button-card/button-card.js?v=7.0.1
+    type: module
 title: 悦都墙屏
 views:
   - title: 家庭总览
