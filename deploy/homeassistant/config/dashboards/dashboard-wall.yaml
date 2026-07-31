@@ -12,7 +12,7 @@ views:
     icon: mdi:home-variant-outline
     type: sections
     max_columns: 3
-    theme: 悦都暖雾
+    theme: 全屋晶璃 Lite
     sections:
       - type: grid
         cards:
@@ -24,22 +24,22 @@ views:
             elements:
               - type: state-label
                 entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
-                style: { left: 50%, top: 8%, color: '#3F3024', background: '#FFF9F1', border: '1px solid #DEC9B3', border-radius: 14px, padding: '8px 12px', font-size: '14px', font-weight: 700 }
+                style: { left: 50%, top: 8%, color: var(--primary-text-color), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-glass-border)', border-radius: 14px, padding: '8px 12px', font-size: '14px', font-weight: 700 }
               - type: icon
                 icon: mdi:sofa-outline
                 title: 客厅
                 tap_action: { action: navigate, navigation_path: /yuedu-home/living }
-                style: { left: 40%, top: 58%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 10px }
+                style: { left: 40%, top: 58%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 10px, box-shadow: var(--crystal-marker-shadow) }
               - type: icon
                 icon: mdi:bed-king-outline
                 title: 主卧
                 tap_action: { action: navigate, navigation_path: /yuedu-home/master-bedroom }
-                style: { left: 28%, top: 30%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 10px }
+                style: { left: 28%, top: 30%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 10px, box-shadow: var(--crystal-marker-shadow) }
               - type: icon
                 icon: mdi:balcony
                 title: 阳台
                 tap_action: { action: navigate, navigation_path: /yuedu-home/balcony }
-                style: { left: 13%, top: 76%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 10px }
+                style: { left: 13%, top: 76%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 10px, box-shadow: var(--crystal-marker-shadow) }
       - type: grid
         cards:
           - type: custom:mushroom-title-card

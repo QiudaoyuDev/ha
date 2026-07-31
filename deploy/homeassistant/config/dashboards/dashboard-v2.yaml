@@ -517,7 +517,7 @@ views:
   - title: 家庭地图
     path: map
     icon: mdi:floor-plan
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     cards:
       - type: custom:mushroom-title-card
         title: 家庭地图
@@ -528,35 +528,35 @@ views:
           style: |
             ha-card {
               overflow: hidden;
-              border: 1px solid var(--yuedu-divider-color);
-              box-shadow: var(--yuedu-card-shadow);
+              border: 1px solid var(--crystal-glass-border);
+              box-shadow: var(--crystal-glass-shadow);
             }
         elements:
           - type: state-icon
             entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
             title: 主卧空调
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 29%, top: 31%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+            style: { left: 29%, top: 31%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
           - type: state-icon
             entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
             title: 主卧循环扇
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 38%, top: 39%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+            style: { left: 38%, top: 39%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
           - type: state-icon
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             title: 客厅摄像机
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
-            style: { left: 38%, top: 57%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+            style: { left: 38%, top: 57%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
           - type: state-icon
             entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
             title: 入户门锁
             tap_action: { action: more-info }
-            style: { left: 73%, top: 79%, background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.18)' }
+            style: { left: 73%, top: 79%, color: var(--crystal-warning), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-warning)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
           - type: state-icon
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             title: 阳台洗衣机
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
-            style: { left: 11%, top: 73%, background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+            style: { left: 11%, top: 73%, color: var(--crystal-marker-icon), background: var(--crystal-marker-bg), border: '1px solid var(--crystal-marker-border)', border-radius: 50%, padding: 7px, box-shadow: var(--crystal-marker-shadow) }
       - type: custom:mushroom-template-card
         entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
         primary: 空间健康摘要
@@ -600,7 +600,7 @@ views:
     icon: mdi:sofa-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     sections:
       - type: grid
         cards:
@@ -613,11 +613,11 @@ views:
             elements:
               - type: icon
                 icon: mdi:sofa-outline
-                style: { left: 46%, top: 78%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+                style: { left: 46%, top: 78%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
               - type: state-label
                 entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
-                style: { left: 61%, top: 78%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+                style: { left: 61%, top: 78%, color: var(--primary-text-color), background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             primary: 客厅守护
@@ -663,7 +663,7 @@ views:
     icon: mdi:bed-king-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     sections:
       - type: grid
         cards:
@@ -676,7 +676,7 @@ views:
             elements:
               - type: icon
                 icon: mdi:bed-king-outline
-                style: { left: 28%, top: 30%, color: '#FFF9F1', background: 'rgba(23, 108, 147, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(23, 76, 101, .30)' }
+                style: { left: 28%, top: 30%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(23, 76, 101, .30)' }
               - type: state-label
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
@@ -743,7 +743,7 @@ views:
     icon: mdi:balcony
     type: sections
     max_columns: 2
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     sections:
       - type: grid
         cards:
@@ -755,11 +755,11 @@ views:
             elements:
               - type: icon
                 icon: mdi:balcony
-                style: { left: 12%, top: 68%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
+                style: { left: 12%, top: 68%, color: var(--crystal-marker-bg), background: var(--crystal-marker-bg), border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
               - type: state-label
                 entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
                 tap_action: { action: more-info }
-                style: { left: 30%, top: 68%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+                style: { left: 30%, top: 68%, color: var(--primary-text-color), background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             primary: 洗衣任务
@@ -810,7 +810,7 @@ views:
   - title: 卧室 B
     path: bedroom-b
     icon: mdi:bed-single-outline
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     cards:
       - type: custom:mushroom-title-card
         title: 卧室 B
@@ -825,7 +825,7 @@ views:
   - title: 厨房与卫浴
     path: service-spaces
     icon: mdi:countertop-outline
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     cards:
       - type: custom:mushroom-title-card
         title: 厨房与卫浴
@@ -848,7 +848,7 @@ views:
     icon: mdi:calendar-weather
     type: sections
     max_columns: 2
-    theme: 悦都暖雾
+    theme: 全屋晶璃
     sections:
       - type: grid
         cards:
