@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "frontend.user_data_e7575fcc35e7460a96b48550441f2168",
+  "data": {
+    "theme": {
+      "theme": "悦都暖雾"
+    },
+    "core": {
+      "default_panel": "yuedu-home"
+    }
+  }
+}

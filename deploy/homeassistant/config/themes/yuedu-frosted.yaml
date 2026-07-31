@@ -1,0 +1,112 @@
+# 悦都暖雾：基于当前悦都暖石配色的轻量毛玻璃主题。
+# 2.5D 户型图保持清晰；普通信息卡提供柔和玻璃层；控制弹层和下拉控件不做强模糊。
+悦都暖雾:
+  card-mod-theme: "悦都暖雾"
+  modes:
+    light: {}
+
+  primary-color: "#87593B"
+  accent-color: "#167D7A"
+  primary-text-color: "#3F3024"
+  secondary-text-color: "#75675A"
+  primary-background-color: "#F1E7DA"
+  secondary-background-color: "#E9DDCF"
+  card-background-color: "rgba(255, 249, 241, 0.72)"
+  divider-color: "rgba(222, 201, 179, 0.72)"
+  app-header-background-color: "rgba(247, 241, 231, 0.78)"
+  app-header-text-color: "#3F3024"
+  sidebar-background-color: "rgba(238, 225, 210, 0.82)"
+  sidebar-text-color: "#4D4035"
+  sidebar-selected-background-color: "rgba(231, 209, 184, 0.86)"
+  sidebar-selected-text-color: "#694226"
+  state-icon-color: "#897D70"
+  state-icon-active-color: "#167D7A"
+  success-color: "#167D7A"
+  warning-color: "#B7791F"
+  error-color: "#B54A41"
+
+  # 共享视觉令牌：现有 Button Card、地图 Card Mod 与后续模板统一使用。
+  yuedu-accent-color: "#167D7A"
+  yuedu-warning-color: "#B7791F"
+  yuedu-error-color: "#B54A41"
+  yuedu-divider-color: "rgba(222, 201, 179, 0.72)"
+  yuedu-card-shadow: "0 10px 28px rgba(96, 67, 40, 0.10)"
+  yuedu-card-radius: "20px"
+  lovelace-background: "radial-gradient(circle at 8% 0%, #FFF9F1 0, #F3E9DC 45%, #E6D8C7 100%)"
+
+  card-mod-root: |
+    :host {
+      --ha-card-background: rgba(255, 249, 241, 0.72);
+      --ha-card-border-width: 1px;
+      --ha-card-border-color: rgba(255, 255, 255, 0.68);
+      --ha-card-box-shadow: 0 10px 28px rgba(96, 67, 40, 0.10);
+      --ha-card-backdrop-filter: blur(8px) saturate(1.05);
+      --ha-card-glass-tint: rgba(255, 249, 241, 0.42);
+    }
+
+  card-mod-card: |
+    ha-card {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: rgba(255, 249, 241, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.68);
+      border-radius: 20px;
+      box-shadow: 0 10px 28px rgba(96, 67, 40, 0.10);
+    }
+
+    ha-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      border-radius: inherit;
+      background: var(--ha-card-glass-tint);
+      backdrop-filter: var(--ha-card-backdrop-filter);
+      -webkit-backdrop-filter: var(--ha-card-backdrop-filter);
+      box-shadow: 2px 2px 0 rgba(255, 255, 255, 0.24) inset;
+    }
+
+    /* 标题、快捷 Chips 和 Bubble 弹层保持干净，避免嵌套控件变糊。 */
+    :host(mushroom-title-card) ha-card,
+    :host(mushroom-chips-card) ha-card,
+    :host(.type-custom-bubble-card) ha-card {
+      background: transparent !important;
+      border: none !important;
+      box-shadow: none !important;
+    }
+    :host(mushroom-title-card) ha-card::before,
+    :host(mushroom-chips-card) ha-card::before,
+    :host(.type-custom-bubble-card) ha-card::before {
+      content: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* 2.5D 图是空间定位依据，只保留边框和轻阴影，不对图片做模糊。 */
+    :host(hui-picture-elements-card) ha-card {
+      background: rgba(255, 249, 241, 0.24) !important;
+      box-shadow: 0 8px 24px rgba(96, 67, 40, 0.08) !important;
+    }
+    :host(hui-picture-elements-card) ha-card::before {
+      content: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    /* 嵌套实体卡和控制器保持原生可读性。 */
+    ha-card ha-card,
+    ha-card ha-select,
+    ha-card mwc-menu,
+    ha-card ha-dialog {
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+    }
+
+    :host(.text-only) ha-card,
+    :host(.text-only) ha-card::before {
+      background: none !important;
+      box-shadow: none !important;
+      content: none !important;
+    }

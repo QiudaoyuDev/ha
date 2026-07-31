@@ -13,7 +13,7 @@ views:
     icon: mdi:home-variant-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖石
+    theme: 悦都暖雾
     sections:
       - type: grid
         cards:
@@ -514,7 +514,7 @@ views:
   - title: 家庭地图
     path: map
     icon: mdi:floor-plan
-    theme: 悦都暖石
+    theme: 悦都暖雾
     cards:
       - type: custom:mushroom-title-card
         title: 家庭地图
@@ -618,7 +618,7 @@ views:
     icon: mdi:sofa-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖石
+    theme: 悦都暖雾
     sections:
       - type: grid
         cards:
@@ -681,7 +681,7 @@ views:
     icon: mdi:bed-king-outline
     type: sections
     max_columns: 2
-    theme: 悦都暖石
+    theme: 悦都暖雾
     sections:
       - type: grid
         cards:
@@ -761,7 +761,7 @@ views:
     icon: mdi:balcony
     type: sections
     max_columns: 2
-    theme: 悦都暖石
+    theme: 悦都暖雾
     sections:
       - type: grid
         cards:
@@ -828,7 +828,7 @@ views:
   - title: 卧室 B
     path: bedroom-b
     icon: mdi:bed-single-outline
-    theme: 悦都暖石
+    theme: 悦都暖雾
     cards:
       - type: custom:mushroom-title-card
         title: 卧室 B
@@ -843,7 +843,7 @@ views:
   - title: 厨房与卫浴
     path: service-spaces
     icon: mdi:countertop-outline
-    theme: 悦都暖石
+    theme: 悦都暖雾
     cards:
       - type: custom:mushroom-title-card
         title: 厨房与卫浴

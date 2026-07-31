@@ -2,12 +2,15 @@
 
 本清单记录 Dashboard 运行时依赖，避免把 `source/` 下载目录误当成已安装资源。
 
+当前 Dashboard 使用 `悦都暖雾` 主题：它沿用悦都暖石配色，仅对普通信息卡启用轻量毛玻璃；2.5D 户型图、标题、Mushroom Chips 和 Bubble 弹层保持清晰。
+
 | 资源 | 用途 | 运行路径 | 来源/版本 |
 | --- | --- | --- | --- |
 | Mushroom | 标题、摘要、标准实体控制 | `/hacsfiles/lovelace-mushroom/mushroom.js` | HACS，现有资源记录 `hacstag=444350375511` |
 | Bubble Card | 房间深度控制弹层 | `/hacsfiles/Bubble-Card/bubble-card.js` | HACS，现有资源记录 `hacstag=680112919325` |
 | Card Mod | 少量共享卡片样式 | `/local/community/lovelace-card-mod/card-mod.js?v=4.1.0` | `source/lovelace-card-mod/card-mod.js`，4.1.0 |
 | Button Card | 地图/设备状态徽标 | `/local/community/button-card/button-card.js?v=7.0.1` | button-card release v7.0.1 |
+| 悦都暖雾 | Dashboard 全局视觉主题 | `config/themes/yuedu-frosted.yaml` | 本地派生主题，依赖 Card Mod |
 
 `dashboard-v2.yaml` 与 `dashboard-wall.yaml` 显式声明本地资源；Mushroom/Bubble 仍由 HACS 更新，避免手工复制覆盖 HACS 文件。升级任一资源时，同时更新本表、URL 版本参数并完成移动端/墙屏缓存刷新验证。
 

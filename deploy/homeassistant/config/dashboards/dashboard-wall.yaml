@@ -12,7 +12,7 @@ views:
     icon: mdi:home-variant-outline
     type: sections
     max_columns: 3
-    theme: 悦都暖石
+    theme: 悦都暖雾
     sections:
       - type: grid
         cards:
