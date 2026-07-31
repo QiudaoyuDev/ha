@@ -32,7 +32,7 @@ lovelace:
       mode: yaml
       title: 悦都墙屏
       icon: mdi:tablet-dashboard
-      show_in_sidebar: false
+      show_in_sidebar: true
       require_admin: false
       filename: dashboards/dashboard-wall.yaml
 
