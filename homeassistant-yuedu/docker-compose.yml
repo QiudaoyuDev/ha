@@ -12,18 +12,3 @@ services:
     environment:
       TZ: Asia/Shanghai
     restart: unless-stopped
-
-  ha-fusion:
-    container_name: ha-fusion
-    image: ghcr.io/knowald/ha-fusion
-    network_mode: host
-    volumes:
-      - /opt/homeassistant/ha-fusion:/app/data
-    environment:
-      TZ: Asia/Shanghai
-      HASS_URL: http://10.12.48.181:8123
-      PORT: '5050'
-      NODE_ENV: production
-    restart: unless-stopped
-    depends_on:
-      - homeassistant
