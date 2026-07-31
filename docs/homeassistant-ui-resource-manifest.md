@@ -16,6 +16,8 @@
 | 全屋晶璃 | Dashboard 自动 Light/Dark 玻璃主题 | `config/themes/crystal-home.yaml` | 本地独立主题，参考 `homeassistant-frosted-glass-themes` 的 mode/Card Mod 分层 |
 | 全屋晶璃 Lite | 墙屏与低性能设备无模糊主题 | `config/themes/crystal-home-lite.yaml` | 本地降级主题，不使用 `backdrop-filter` |
 | Crystal Home 背景 | Light/Dark 本地环境背景 | `/local/backgrounds/crystal-home-light.webp`、`crystal-home-dark.webp` | `config/www/backgrounds/` |
+| Frosted Glass 系列 | 参考主题的标准、Light/Dark 与 Lite 变体 | `config/themes/Frosted Glass*.yaml` | 基于 `homeassistant-frosted-glass-themes`，背景已改为本地资源 |
+| Frosted Glass 背景 | Frosted Light/Dark 背景 | `/local/backgrounds/frosted-glass-light-background.jpg`、`frosted-glass-dark-background.jpg` | `config/www/backgrounds/` |
 
 `dashboard-v2.yaml` 与 `dashboard-wall.yaml` 显式声明本地资源；Mushroom/Bubble 仍由 HACS 更新，避免手工复制覆盖 HACS 文件。升级任一资源时，同时更新本表、URL 版本参数并完成移动端/墙屏缓存刷新验证。
 

@@ -11,6 +11,8 @@
 
 5. 确认 `/config/www/backgrounds/crystal-home-light.webp` 与 `crystal-home-dark.webp` 已复制；用户主题选择“全屋晶璃”即可自动跟随系统明暗，墙屏 Dashboard 使用“全屋晶璃 Lite”。
 
+6. 参考仓库主题已注册为 `Frosted Glass`、`Frosted Glass Light/Dark`、`Frosted Glass Lite` 及对应 Light/Dark Lite 版本；它们不会自动替换当前 Dashboard，可在用户主题选择器中手动切换。
+
 项目使用原生 Lovelace 卡片、`picture-elements` 和少量 HACS 卡片。摄像机没有可用实时流时只展示离线/未接入语义；门锁只有传感器实体，因此只展示状态和电量、不提供远程解锁。Lite 版本不使用 `backdrop-filter`，用于墙屏、下拉菜单和低性能设备。
 
 Home Assistant 运行时文件（`.storage/`、`secrets.yaml`、数据库、日志、缓存和 `.HA_VERSION`）由 `.gitignore` 排除，不能提交到仓库。已存在的运行实例仍需在 HA 中注销旧会话并轮换已暴露的凭据。
