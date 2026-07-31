@@ -98,6 +98,20 @@ views:
             conditions:
               - condition: state
                 entity: binary_sensor.yue_du_tian_qi_shu_ju_ke_yong
+                state: "on"
+            card:
+              type: weather-forecast
+              entity: weather.wo_de_jia
+              name: 未来 5 天天气趋势
+              show_current: false
+              show_forecast: true
+              forecast_type: daily
+              secondary_info_attribute: precipitation
+              round_temperature: true
+          - type: conditional
+            conditions:
+              - condition: state
+                entity: binary_sensor.yue_du_tian_qi_shu_ju_ke_yong
                 state: "off"
             card:
               type: custom:mushroom-template-card
@@ -619,51 +633,30 @@ views:
         columns: 3
         square: false
         cards:
-          - type: custom:button-card
+          - type: custom:mushroom-template-card
             entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-            name: 主卧空调
+            primary: 主卧空调
+            secondary: "{{ states(entity) }}"
             icon: mdi:air-conditioner
-            show_state: true
+            icon_color: >-
+              {% if states(entity) == '设备离线' %}amber{% elif states(entity) == '运行中' %}teal{% else %}blue{% endif %}
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            styles:
-              card: [padding: 12px, border-radius: 16px]
-              name: [font-size: 12px, font-weight: 700]
-              state: [font-size: 11px]
-            state:
-              - value: 设备离线
-                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
-              - value: 运行中
-                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
-          - type: custom:button-card
+          - type: custom:mushroom-template-card
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-            name: 客厅摄像机
+            primary: 客厅摄像机
+            secondary: "{{ states(entity) }}"
             icon: mdi:cctv
-            show_state: true
+            icon_color: >-
+              {% if states(entity) == '设备离线' %}amber{% else %}teal{% endif %}
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
-            styles:
-              card: [padding: 12px, border-radius: 16px]
-              name: [font-size: 12px, font-weight: 700]
-              state: [font-size: 11px]
-            state:
-              - value: 设备离线
-                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
-              - value: 守护中
-                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
-          - type: custom:button-card
+          - type: custom:mushroom-template-card
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-            name: 阳台洗衣机
+            primary: 阳台洗衣机
+            secondary: "{{ states(entity) }}"
             icon: mdi:washing-machine
-            show_state: true
+            icon_color: >-
+              {% if states(entity) == '设备离线' %}amber{% elif states(entity) == '洗涤中' %}teal{% else %}blue{% endif %}
             tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
-            styles:
-              card: [padding: 12px, border-radius: 16px]
-              name: [font-size: 12px, font-weight: 700]
-              state: [font-size: 11px]
-            state:
-              - value: 设备离线
-                styles: { icon: [color: var(--yuedu-warning-color)], state: [color: var(--yuedu-warning-color)] }
-              - value: 洗涤中
-                styles: { icon: [color: var(--yuedu-accent-color)], state: [color: var(--yuedu-accent-color)] }
 
   - title: 客厅
     path: living
@@ -997,7 +990,7 @@ views:
             subtitle: 农历、节气、节日与传统历法
           - type: custom:almanac-card
             title: 悦都万年历
-            prefix: chinese_almanac_
+            prefix: zhong_guo_lao_huang_li_
           - type: custom:mushroom-template-card
             primary: 历法说明
             secondary: 农历与节气由本地自定义集成计算；传统宜忌仅作文化信息展示，不参与设备自动化。
