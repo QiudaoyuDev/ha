@@ -40,21 +40,42 @@ views:
                   transition: color var(--yuedu-transition, 200ms ease);
                 }
             tap_action: { action: navigate, navigation_path: /yuedu-home/map }
-          - type: picture-elements
+          - type: custom:floorplan-card
             image: /local/floorplan/yuedu-home-2p5d.png
-            elements:
-              - type: state-label
-                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-                tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
-                style: { left: 29%, top: 29%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
-              - type: state-label
-                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-                tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
-                style: { left: 41%, top: 67%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
-              - type: state-label
-                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-                tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
-                style: { left: 14%, top: 76%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '5px 8px', font-size: '11px', font-weight: 700, white-space: nowrap }
+            svg: /local/floorplan/yuedu-home-fp.svg
+            title: 户型图
+            card_mod:
+              style: |
+                :host {
+                  border-radius: var(--yuedu-radius, 20px);
+                  overflow: hidden;
+                }
+            rules:
+              - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                element: fp-ac
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                element: fp-fan
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                element: fp-cam
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-camera'
+              - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                element: fp-lock
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-lock'
+              - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                element: fp-wash
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-balcony-washer'
       - type: grid
         cards:
           - type: custom:mushroom-chips-card
@@ -592,29 +613,42 @@ views:
       - type: custom:mushroom-title-card
         title: 家庭地图
         subtitle: 点击设备标记，进入对应空间
-      - type: picture-elements
+      - type: custom:floorplan-card
         image: /local/floorplan/yuedu-home-2p5d.png
-        elements:
-          - type: state-label
-            entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
-            style: { left: 29%, top: 31%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
-          - type: state-label
-            entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: '#yuedu-master-climate' }
-            style: { left: 38%, top: 39%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
-          - type: state-label
-            entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: '#yuedu-living-camera' }
-            style: { left: 41%, top: 57%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
-          - type: state-label
-            entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: '#yuedu-living-lock' }
-            style: { left: 73%, top: 79%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
-          - type: state-label
-            entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-            tap_action: { action: navigate, navigation_path: '#yuedu-balcony-washer' }
-            style: { left: 14%, top: 73%, color: '#155E5A', background: 'rgba(255,249,241,.96)', border: '1px solid #DEC9B3', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+        svg: /local/floorplan/yuedu-home-fp.svg
+        title: 家庭地图
+        card_mod:
+          style: |
+            :host {
+              border-radius: var(--yuedu-radius, 20px);
+              overflow: hidden;
+            }
+        rules:
+          - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+            element: fp-ac
+            tap_action:
+              action: navigate
+              navigation_path: '#yuedu-master-climate'
+          - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+            element: fp-fan
+            tap_action:
+              action: navigate
+              navigation_path: '#yuedu-master-climate'
+          - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+            element: fp-cam
+            tap_action:
+              action: navigate
+              navigation_path: '#yuedu-living-camera'
+          - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+            element: fp-lock
+            tap_action:
+              action: navigate
+              navigation_path: '#yuedu-living-lock'
+          - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+            element: fp-wash
+            tap_action:
+              action: navigate
+              navigation_path: '#yuedu-balcony-washer'
       - type: custom:mushroom-template-card
         entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
         primary: 空间健康摘要
@@ -646,16 +680,42 @@ views:
                   border-radius: var(--yuedu-radius, 20px);
                 }
           # 空间页先让家人看见“自己正在哪”，再进入具体设备控制。
-          - type: picture-elements
+          - type: custom:floorplan-card
             image: /local/floorplan/yuedu-home-2p5d.png
-            elements:
-              - type: icon
-                icon: mdi:sofa-outline
-                style: { left: 46%, top: 78%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
-              - type: state-label
-                entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
-                tap_action: { action: more-info }
-                style: { left: 61%, top: 78%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+            svg: /local/floorplan/yuedu-home-fp.svg
+            title: 客厅户型
+            card_mod:
+              style: |
+                :host {
+                  border-radius: var(--yuedu-radius, 20px);
+                  overflow: hidden;
+                }
+            rules:
+              - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                element: fp-ac
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                element: fp-fan
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                element: fp-cam
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-camera'
+              - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                element: fp-lock
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-lock'
+              - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                element: fp-wash
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-balcony-washer'
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
             primary: 客厅守护
@@ -717,16 +777,42 @@ views:
                   border-radius: var(--yuedu-radius, 20px);
                 }
           # 保留同一张户型底图，避免为 UI 引入不可靠的外部图库依赖。
-          - type: picture-elements
+          - type: custom:floorplan-card
             image: /local/floorplan/yuedu-home-2p5d.png
-            elements:
-              - type: icon
-                icon: mdi:bed-king-outline
-                style: { left: 28%, top: 30%, color: '#FFF9F1', background: 'rgba(23, 108, 147, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(23, 76, 101, .30)' }
-              - type: state-label
-                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
-                tap_action: { action: more-info }
-                style: { left: 44%, top: 30%, color: '#174C65', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+            svg: /local/floorplan/yuedu-home-fp.svg
+            title: 主卧户型
+            card_mod:
+              style: |
+                :host {
+                  border-radius: var(--yuedu-radius, 20px);
+                  overflow: hidden;
+                }
+            rules:
+              - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                element: fp-ac
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                element: fp-fan
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                element: fp-cam
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-camera'
+              - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                element: fp-lock
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-lock'
+              - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                element: fp-wash
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-balcony-washer'
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
             primary: 睡眠环境
@@ -804,16 +890,42 @@ views:
                   background-position: center 73%;
                   border-radius: var(--yuedu-radius, 20px);
                 }
-          - type: picture-elements
+          - type: custom:floorplan-card
             image: /local/floorplan/yuedu-home-2p5d.png
-            elements:
-              - type: icon
-                icon: mdi:balcony
-                style: { left: 12%, top: 68%, color: '#FFF9F1', background: 'rgba(24, 122, 119, 0.94)', border-radius: 50%, padding: 9px, box-shadow: '0 5px 14px rgba(21, 94, 90, .30)' }
-              - type: state-label
-                entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
-                tap_action: { action: more-info }
-                style: { left: 30%, top: 68%, color: '#155E5A', background: 'rgba(255, 249, 241, .96)', border-radius: 14px, padding: '6px 10px', font-size: '12px', font-weight: 700, white-space: nowrap }
+            svg: /local/floorplan/yuedu-home-fp.svg
+            title: 阳台户型
+            card_mod:
+              style: |
+                :host {
+                  border-radius: var(--yuedu-radius, 20px);
+                  overflow: hidden;
+                }
+            rules:
+              - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                element: fp-ac
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                element: fp-fan
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                element: fp-cam
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-camera'
+              - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                element: fp-lock
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-lock'
+              - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                element: fp-wash
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-balcony-washer'
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
             primary: 洗衣任务
@@ -896,3 +1008,77 @@ views:
         icon: mdi:shower
         icon_color: teal
         multiline_secondary: true
+
+  - title: 墙屏
+    path: wall
+    icon: mdi:monitor
+    theme: 悦都暖石
+    type: sections
+    max_columns: 4
+    sections:
+      - type: grid
+        cards:
+          - type: custom:floorplan-card
+            image: /local/floorplan/yuedu-home-2p5d.png
+            svg: /local/floorplan/yuedu-home-fp.svg
+            title: 家庭地图（墙屏常驻）
+            card_mod:
+              style: |
+                :host {
+                  border-radius: var(--yuedu-radius, 20px);
+                  overflow: hidden;
+                }
+            rules:
+              - entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                element: fp-ac
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_xun_huan_shan_zhan_shi_zhuang_tai
+                element: fp-fan
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
+              - entity: sensor.yue_du_she_xiang_ji_zhan_shi_zhuang_tai
+                element: fp-cam
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-camera'
+              - entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                element: fp-lock
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-living-lock'
+              - entity: sensor.yue_du_xi_yi_ji_zhan_shi_zhuang_tai
+                element: fp-wash
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-balcony-washer'
+          - type: custom:mushroom-chips-card
+            alignment: justify
+            chips:
+              - type: template
+                entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
+                content: "{{ states(entity) }}"
+                icon: mdi:home-heart
+                icon_color: teal
+              - type: entity
+                entity: switch.chuangmi_cn_1143041027_069a01_on_p_2_1
+                name: 摄像机
+                icon: mdi:cctv
+                icon_color: teal
+                tap_action: { action: toggle }
+              - type: entity
+                entity: fan.xiaomi_cn_922697707_p51_s_2_fan
+                name: 循环扇
+                icon: mdi:fan
+                icon_color: blue
+                tap_action: { action: toggle }
+              - type: template
+                entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
+                content: "空调 {{ states(entity) }}"
+                icon: mdi:air-conditioner
+                icon_color: blue
+                tap_action:
+                  action: navigate
+                  navigation_path: '#yuedu-master-climate'
