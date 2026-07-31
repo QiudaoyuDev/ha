@@ -14,6 +14,11 @@ views:
           - type: custom:mushroom-title-card
             title: 悦都全屋
             subtitle: 空间即入口 · 状态先于控制
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-border-radius: var(--yuedu-radius, 20px);
+                }
           - type: custom:mushroom-template-card
             entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
             primary: 全屋状态
@@ -26,6 +31,14 @@ views:
             icon_color: >-
               {% if states(entity) == '全屋状态正常' %}teal{% else %}amber{% endif %}
             multiline_secondary: true
+            card_mod:
+              style: |
+                :host {
+                  --ha-card-border-radius: var(--yuedu-radius, 20px);
+                }
+                ha-icon, ha-state-icon, .icon {
+                  transition: color var(--yuedu-transition, 200ms ease);
+                }
             tap_action: { action: navigate, navigation_path: /yuedu-home/map }
           - type: picture-elements
             image: /local/floorplan/yuedu-home-2p5d.png
@@ -52,7 +65,7 @@ views:
                 icon: mdi:door-closed-lock
                 icon_color: amber
                 content: "门锁 {{ states(entity) }}"
-                tap_action: { action: navigate, navigation_path: /yuedu-home/living }
+                tap_action: { action: navigate, navigation_path: '#yuedu-living-lock' }
               - type: template
                 entity: sensor.yue_du_kong_diao_zhan_shi_zhuang_tai
                 icon: mdi:air-conditioner
@@ -101,7 +114,7 @@ views:
                 secondary: "{{ states(entity) }} · 只读安全状态"
                 icon: mdi:door-closed-lock
                 icon_color: amber
-                tap_action: { action: more-info }
+                tap_action: { action: navigate, navigation_path: '#yuedu-living-lock' }
       - type: grid
         cards:
           - type: custom:mushroom-title-card
@@ -117,18 +130,16 @@ views:
                 icon: mdi:home-export-outline
                 icon_color: amber
                 tap_action:
-                  action: perform-action
-                  perform_action: script.turn_on
-                  target: { entity_id: script.yuedu_away_mode }
+                  action: navigate
+                  navigation_path: '#yuedu-away'
               - type: custom:mushroom-template-card
                 primary: 睡眠模式
                 secondary: 收拢卧室设备，保留提醒
                 icon: mdi:weather-night
                 icon_color: indigo
                 tap_action:
-                  action: perform-action
-                  perform_action: script.turn_on
-                  target: { entity_id: script.yuedu_sleep_mode }
+                  action: navigate
+                  navigation_path: '#yuedu-sleep'
       - type: grid
         cards:
           - type: custom:mushroom-template-card
@@ -136,13 +147,13 @@ views:
             secondary: 等待接入设备
             icon: mdi:bed-single-outline
             icon_color: grey
-            tap_action: { action: navigate, navigation_path: /yuedu-home/bedroom-b }
+            tap_action: { action: navigate, navigation_path: '#yuedu-reserved' }
           - type: custom:mushroom-template-card
             primary: 厨房与卫浴
             secondary: 安全优先的预留空间
             icon: mdi:countertop-outline
             icon_color: brown
-            tap_action: { action: navigate, navigation_path: /yuedu-home/service-spaces }
+            tap_action: { action: navigate, navigation_path: '#yuedu-reserved' }
       # Bubble 只承担按需展开的深度控制；实体卡仍由 Mushroom 负责。
       - type: grid
         cards:
@@ -476,8 +487,102 @@ views:
                   primary: 阳台洗衣机暂不可用
                   secondary: 设备离线，恢复连接后会显示可执行控件。
                   icon: mdi:cloud-off-outline
-                  icon_color: amber
-                  multiline_secondary: true
+                icon_color: amber
+                multiline_secondary: true
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-living-lock'
+            name: 入户门锁
+            icon: mdi:door-closed-lock
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
+                primary: 入户门锁
+                secondary: "{{ states(entity) }} · 只读安全状态，不提供远程开锁"
+                icon: mdi:door-closed-lock
+                icon_color: amber
+                multiline_secondary: true
+              - type: grid
+                columns: 2
+                square: false
+                cards:
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021
+                    name: 大门状态
+                    icon: mdi:door
+                    icon_color: amber
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.xiaomi_cn_1193742494_s1_status_p_6_1004
+                    name: 门锁状态
+                    icon: mdi:lock
+                    icon_color: amber
+                  - type: custom:mushroom-entity-card
+                    entity: sensor.xiaomi_cn_1193742494_s1_battery_level_p_6_1003
+                    name: 门锁电量
+                    icon: mdi:battery
+                    icon_color: amber
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-away'
+            name: 离家模式
+            icon: mdi:home-export-outline
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 确认离家模式
+                secondary: 将关闭主卧循环扇并开启客厅摄像机守护；门锁请现场确认。空调温度与模式保持不变。
+                icon: mdi:home-export-outline
+                icon_color: amber
+                multiline_secondary: true
+              - type: custom:mushroom-template-card
+                primary: 执行离家模式
+                secondary: 点击确认后执行
+                icon: mdi:check-circle-outline
+                icon_color: teal
+                tap_action:
+                  action: perform-action
+                  perform_action: script.turn_on
+                  target: { entity_id: script.yuedu_away_mode }
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-sleep'
+            name: 睡眠模式
+            icon: mdi:weather-night
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 确认睡眠模式
+                secondary: 将关闭主卧循环扇；空调温度与模式保留当前设置，避免覆盖家庭偏好。
+                icon: mdi:weather-night
+                icon_color: indigo
+                multiline_secondary: true
+              - type: custom:mushroom-template-card
+                primary: 执行睡眠模式
+                secondary: 点击确认后执行
+                icon: mdi:check-circle-outline
+                icon_color: teal
+                tap_action:
+                  action: perform-action
+                  perform_action: script.turn_on
+                  target: { entity_id: script.yuedu_sleep_mode }
+          - type: custom:bubble-card
+            card_type: pop-up
+            hash: '#yuedu-reserved'
+            name: 预留空间
+            icon: mdi:plus-circle-outline
+            popup_mode: fit-content
+            show_header: true
+            cards:
+              - type: custom:mushroom-template-card
+                primary: 即将支持的空间
+                secondary: 次卧按 灯光 → 环境 → 门窗/人体 → 窗帘 的顺序扩展；厨房与卫浴优先安全（燃气/漏水/排风）。
+                icon: mdi:dots-horizontal-circle-outline
+                icon_color: grey
+                multiline_secondary: true
 
   - title: 家庭地图
     path: map
@@ -487,35 +592,9 @@ views:
       - type: custom:mushroom-title-card
         title: 家庭地图
         subtitle: 点击设备标记，进入对应空间
-      - type: picture-elements
-        image: /local/floorplan/yuedu-home-2p5d.png
-        elements:
-          - type: icon
-            icon: mdi:air-conditioner
-            title: 主卧空调
-            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 29%, top: 31%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:fan
-            title: 主卧循环扇
-            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-master-climate }
-            style: { left: 38%, top: 39%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:cctv
-            title: 客厅摄像机
-            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-living-camera }
-            style: { left: 38%, top: 57%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
-          - type: icon
-            icon: mdi:door-closed-lock
-            title: 入户门锁
-            tap_action: { action: more-info }
-            entity: sensor.yue_du_men_suo_zhan_shi_zhuang_tai
-            style: { left: 73%, top: 79%, color: '#9A6416', background: '#FFF9F1', border: '2px solid #B7791F', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(183,121,31,.18)' }
-          - type: icon
-            icon: mdi:washing-machine
-            title: 阳台洗衣机
-            tap_action: { action: navigate, navigation_path: /yuedu-home/home#yuedu-balcony-washer }
-            style: { left: 11%, top: 73%, color: '#167D7A', background: '#FFF9F1', border: '2px solid #167D7A', border-radius: 50%, padding: 7px, box-shadow: '0 4px 12px rgba(22,125,122,.18)' }
+      - type: custom:floorplan-card
+        svg: /local/floorplan/yuedu-home.svg
+        title: 家庭地图
       - type: custom:mushroom-template-card
         entity: sensor.yue_du_quan_wu_zhan_shi_zhuang_tai
         primary: 空间健康摘要
@@ -538,6 +617,14 @@ views:
           - type: custom:mushroom-title-card
             title: 客厅
             subtitle: 守护、入户与可见性
+            card_mod:
+              style: |
+                :host {
+                  background-image: linear-gradient(rgba(241,231,218,0.80), rgba(241,231,218,0.80)), url("/local/floorplan/yuedu-home-2p5d.png");
+                  background-size: cover;
+                  background-position: center 35%;
+                  border-radius: var(--yuedu-radius, 20px);
+                }
           # 空间页先让家人看见“自己正在哪”，再进入具体设备控制。
           - type: picture-elements
             image: /local/floorplan/yuedu-home-2p5d.png
@@ -601,6 +688,14 @@ views:
           - type: custom:mushroom-title-card
             title: 卧室 A
             subtitle: 温度、气流与睡眠
+            card_mod:
+              style: |
+                :host {
+                  background-image: linear-gradient(rgba(241,231,218,0.80), rgba(241,231,218,0.80)), url("/local/floorplan/yuedu-home-2p5d.png");
+                  background-size: cover;
+                  background-position: center 30%;
+                  border-radius: var(--yuedu-radius, 20px);
+                }
           # 保留同一张户型底图，避免为 UI 引入不可靠的外部图库依赖。
           - type: picture-elements
             image: /local/floorplan/yuedu-home-2p5d.png
@@ -681,6 +776,14 @@ views:
           - type: custom:mushroom-title-card
             title: 阳台 A
             subtitle: 洗衣进度与设备维护
+            card_mod:
+              style: |
+                :host {
+                  background-image: linear-gradient(rgba(241,231,218,0.80), rgba(241,231,218,0.80)), url("/local/floorplan/yuedu-home-2p5d.png");
+                  background-size: cover;
+                  background-position: center 73%;
+                  border-radius: var(--yuedu-radius, 20px);
+                }
           - type: picture-elements
             image: /local/floorplan/yuedu-home-2p5d.png
             elements:

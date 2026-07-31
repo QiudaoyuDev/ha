@@ -28,3 +28,18 @@
   error-color: "#B54A41"
   lovelace-background: "radial-gradient(circle at 8% 0%, #F7F1E7 0, #F1E7DA 44%, #E9DDCF 100%)"
   masonry-view-card-margin: "10px"
+  # U1 设计令牌：供 card-mod 与弹窗统一引用
+  --yuedu-radius: "20px"
+  --yuedu-gap: "12px"
+  --yuedu-surface: "#FFF9F1"
+  --yuedu-accent: "#167D7A"
+  --yuedu-ink: "#3F3024"
+  --yuedu-min-tap: "44px"
+  # U2 状态过渡（card-mod 引用）
+  --yuedu-transition: "200ms ease"
+  # U9 暗色模式（暂未启用；需求确认后取消注释并验证 2.5D 底图可读性）
+  # lovelace-background: "#1c1814"
+  # primary-background-color: "#1c1814"
+  # card-background-color: "#2a241d"
+  # primary-text-color: "#F1E7DA"
+  # secondary-text-color: "#b9a890"

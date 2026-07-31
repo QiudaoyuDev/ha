@@ -2,6 +2,7 @@
 # 仪表盘只展示这些中文语义状态，绝不把 unavailable / unknown / None 交给家人。
 - sensor:
     - name: 悦都门锁展示状态
+      icon: mdi:door-closed-lock
       unique_id: yuedu_door_display_state
       state: >-
         {% set value = states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021') %}
@@ -14,6 +15,7 @@
         offline: "{{ states('sensor.xiaomi_cn_1193742494_s1_door_state_p_3_1021') in ['unavailable', 'unknown', 'none', 'None', ''] }}"
 
     - name: 悦都摄像机展示状态
+      icon: mdi:cctv
       unique_id: yuedu_camera_display_state
       state: >-
         {% set value = states('switch.chuangmi_cn_1143041027_069a01_on_p_2_1') %}
@@ -25,6 +27,7 @@
         area: 客厅
 
     - name: 悦都空调展示状态
+      icon: mdi:air-conditioner
       unique_id: yuedu_ac_display_state
       state: >-
         {% set value = states('climate.xiaomi_cn_2231050284_h69h00') %}
@@ -39,6 +42,7 @@
           {{ value if value is number else '--' }}
 
     - name: 悦都循环扇展示状态
+      icon: mdi:fan
       unique_id: yuedu_fan_display_state
       state: >-
         {% set value = states('fan.xiaomi_cn_922697707_p51_s_2_fan') %}
@@ -50,6 +54,7 @@
         area: 卧室 A
 
     - name: 悦都洗衣机展示状态
+      icon: mdi:washing-machine
       unique_id: yuedu_washer_display_state
       state: >-
         {% set value = states('sensor.mibx5_cn_2176693305_f94_status_p_2_2') %}
