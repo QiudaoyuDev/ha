@@ -2,7 +2,7 @@
 
 本清单记录 Dashboard 运行时依赖，避免把 `source/` 下载目录误当成已安装资源。
 
-当前 Dashboard 使用 `悦都暖雾` 主题：它沿用悦都暖石配色，仅对普通信息卡启用轻量毛玻璃；2.5D 户型图、标题、Mushroom Chips 和 Bubble 弹层保持清晰。
+当前 Dashboard 使用独立的 `全屋晶璃` 主题：蓝紫灰 Light、深蓝黑 Dark 通过主题 mode 自动切换；`全屋晶璃 Lite` 去除模糊，默认用于墙屏。2.5D 户型图、视频画面、标题、Mushroom Chips 和 Bubble 外层保持清晰，玻璃只作用于外层卡、控制卡和设备 Marker。
 
 | 资源 | 用途 | 运行路径 | 来源/版本 |
 | --- | --- | --- | --- |
@@ -13,12 +13,14 @@
 | Clock Weather Card | 首页与墙屏天气时钟、天气趋势 | `/hacsfiles/clock-weather-card/clock-weather-card.js` | HACS |
 | Calendar Card Pro | 家庭未来日程与天气联动 | `/hacsfiles/calendar-card-pro/calendar-card-pro.js` | HACS |
 | Chinese Almanac | 农历/黄历实体与详情卡 | 由自定义集成自动注册 | HACS，自定义集成；不重复声明 JS |
-| 悦都暖雾 | Dashboard 全局视觉主题 | `config/themes/yuedu-frosted.yaml` | 本地派生主题，依赖 Card Mod |
+| 全屋晶璃 | Dashboard 自动 Light/Dark 玻璃主题 | `config/themes/crystal-home.yaml` | 本地独立主题，参考 `homeassistant-frosted-glass-themes` 的 mode/Card Mod 分层 |
+| 全屋晶璃 Lite | 墙屏与低性能设备无模糊主题 | `config/themes/crystal-home-lite.yaml` | 本地降级主题，不使用 `backdrop-filter` |
+| Crystal Home 背景 | Light/Dark 本地环境背景 | `/local/backgrounds/crystal-home-light.webp`、`crystal-home-dark.webp` | `config/www/backgrounds/` |
 
 `dashboard-v2.yaml` 与 `dashboard-wall.yaml` 显式声明本地资源；Mushroom/Bubble 仍由 HACS 更新，避免手工复制覆盖 HACS 文件。升级任一资源时，同时更新本表、URL 版本参数并完成移动端/墙屏缓存刷新验证。
 
 ## 资源边界
 
 - `source/` 下的开源仓库是参考源码和升级依据，不直接作为 HA 静态资源目录。
-- UI Lovelace Minimalist 与毛玻璃主题暂不注册为默认主题；它们保留在 source 目录，待独立视觉方案评审后再接入。
+- `yuedu-warm.yaml` 与 `yuedu-frosted.yaml` 保留为回滚参考，不作为当前 Dashboard 基础主题。
 - `yuedu-home-2p5d.png` 是当前唯一真实 2.5D 主图；没有真实 3D 模型和设备坐标前，不启用 3D 控制层。

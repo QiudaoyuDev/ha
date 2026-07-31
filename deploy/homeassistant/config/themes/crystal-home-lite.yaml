@@ -5,7 +5,7 @@
     dark: {}
   card-mod-theme: "全屋晶璃 Lite"
   background-image: "center / cover no-repeat fixed url('/local/backgrounds/crystal-home-light.webp')"
-  lovelace-background: "var(--crystal-background-image)"
+  lovelace-background: "var(--background-image)"
   primary-color: "#5A67D8"
   accent-color: "#6C63FF"
   primary-text-color: "rgba(22, 28, 58, 0.96)"

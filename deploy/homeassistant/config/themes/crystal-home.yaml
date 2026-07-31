@@ -3,7 +3,7 @@
 全屋晶璃 Light: &crystal_light
   card-mod-theme: "全屋晶璃 Light"
   background-image: "center / cover no-repeat fixed url('/local/backgrounds/crystal-home-light.webp')"
-  lovelace-background: "var(--crystal-background-image)"
+  lovelace-background: "var(--background-image)"
   primary-color: "#5A67D8"
   accent-color: "#6C63FF"
   primary-text-color: "rgba(22, 28, 58, 0.96)"
@@ -124,9 +124,9 @@
     ha-card ha-card, ha-card ha-select, ha-card mwc-menu, ha-card ha-dialog, ha-card hui-dialog-edit-card { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 
 全屋晶璃:
-  card-mod-theme: "全屋晶璃"
+  card-mod-theme: "全屋晶璃 Light"
   background-image: "center / cover no-repeat fixed url('/local/backgrounds/crystal-home-light.webp')"
-  lovelace-background: "var(--crystal-background-image)"
+  lovelace-background: "var(--background-image)"
   primary-color: "#5A67D8"
   accent-color: "#6C63FF"
   primary-text-color: "rgba(22, 28, 58, 0.96)"
@@ -155,7 +155,7 @@
     dark:
       card-mod-theme: "全屋晶璃 Dark"
       background-image: "center / cover no-repeat fixed url('/local/backgrounds/crystal-home-dark.webp')"
-      lovelace-background: "var(--crystal-background-image)"
+      lovelace-background: "var(--background-image)"
       primary-color: "#8B96FF"
       accent-color: "#A78BFA"
       primary-text-color: "rgba(239, 243, 255, 0.96)"

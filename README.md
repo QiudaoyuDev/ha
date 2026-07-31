@@ -1,6 +1,6 @@
 # 悦都全屋 Home Assistant 原生仪表盘
 
-`dashboard-v2.yaml` 是可部署的新版仪表盘：总览只显示家庭状态和空间入口，户型图、客厅、主卧、阳台与未来空间各自独立，避免单页堆叠全部设备。完整的空间分析和扩展约定见 [空间模型规划.md](空间模型规划.md)。
+`dashboard-v2.yaml` 是可部署的新版仪表盘：`/yuedu-home/home` 以家庭状态、真实 2.5D 户型图、天气摘要和按需设备入口为主；地图、客厅、主卧、阳台与 Agenda 分页承载更完整的信息和控制。视觉主题为独立的“全屋晶璃”，提供自动 Light/Dark、显式 Light/Dark 和墙屏优先的 Lite 无模糊版本。设计与验收边界见 [全屋晶璃主题设计规范](docs/全屋晶璃主题设计规范.md) 和 [全屋晶璃 UI 验收清单](docs/全屋晶璃UI验收清单.md)。
 
 ## 部署
 
@@ -9,7 +9,11 @@
 3. 复制 `www/floorplan/yuedu-home-2p5d.png` 到 `/config/www/floorplan/yuedu-home-2p5d.png`。该图是根据用户户型重绘的 2.5D 底图；原始裁切平面图保留作参考，不作为新版页面底图。
 4. 在“开发者工具 → YAML”检查配置并重启 Home Assistant；侧栏会出现“悦都全屋”。
 
-项目使用原生 Lovelace 卡片、`picture-elements` 和少量 HACS 卡片。摄像机没有 `camera.*` 视频流实体，因此不提供失效的实时画面；门锁只有传感器实体，因此只展示状态和电量、不提供远程解锁。
+5. 确认 `/config/www/backgrounds/crystal-home-light.webp` 与 `crystal-home-dark.webp` 已复制；用户主题选择“全屋晶璃”即可自动跟随系统明暗，墙屏 Dashboard 使用“全屋晶璃 Lite”。
+
+项目使用原生 Lovelace 卡片、`picture-elements` 和少量 HACS 卡片。摄像机没有可用实时流时只展示离线/未接入语义；门锁只有传感器实体，因此只展示状态和电量、不提供远程解锁。Lite 版本不使用 `backdrop-filter`，用于墙屏、下拉菜单和低性能设备。
+
+Home Assistant 运行时文件（`.storage/`、`secrets.yaml`、数据库、日志、缓存和 `.HA_VERSION`）由 `.gitignore` 排除，不能提交到仓库。已存在的运行实例仍需在 HA 中注销旧会话并轮换已暴露的凭据。
 
 ## 天气、家庭日历与万年历
 
