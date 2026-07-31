@@ -2,8 +2,9 @@ services:
   homeassistant:
     container_name: homeassistant-local
     image: ghcr.io/home-assistant/home-assistant:stable
-    # HomeKit relies on LAN mDNS/Bonjour multicast discovery.
-    network_mode: host
+    # Web UI 通过发布端口从 Windows 访问；HomeKit mDNS 在 WSL 镜像网络下由宿主机处理。
+    ports:
+      - "8123:8123"
     volumes:
       - ./config:/config
     environment:
